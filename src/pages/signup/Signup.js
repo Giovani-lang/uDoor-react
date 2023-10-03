@@ -42,7 +42,6 @@ const Signup = () => {
         }, err => {
             if (err.response.status === 409) {
                 message.warning('This user already exist !!!')
-                // alert('This user already exist !!!')
             } else if (err.response.status === 500) {
                 message.warning('A problem occurred while saving information')
             }
