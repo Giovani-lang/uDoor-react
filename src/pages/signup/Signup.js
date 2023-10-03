@@ -4,6 +4,7 @@ import './Signup.css';
 import Wallpaper from "../../assets/wallpaper.png";
 import Logo from "../../assets/logo upowa.png";
 import axios from 'axios';
+import { message } from 'antd';
 
 
 const Signup = () => {
@@ -28,11 +29,10 @@ const Signup = () => {
         axios.post(url, data)
             .then(resp => {
                 if (resp.status === 201) {
-
-
-                    alert('User registered successfully')
+                    // message.success('User registered')
+                    window.location = '/signin';
                 }
-                window.location = '/signin';
+
             })
             .catch(err => {
                 console.log(err)
@@ -41,10 +41,10 @@ const Signup = () => {
             return response;
         }, err => {
             if (err.response.status === 409) {
-
-                alert('This user already exist !!!')
+                message.warning('This user already exist !!!')
+                // alert('This user already exist !!!')
             } else if (err.response.status === 500) {
-                alert('A problem occurred while saving information')
+                message.warning('A problem occurred while saving information')
             }
         })
     };
