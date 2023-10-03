@@ -7,9 +7,7 @@ import axios from 'axios';
 
 
 const Signup = () => {
-
     const url = "https://test-back.authentify.upowa.org/api/user/add";
-    const [messageApi, contextHolder] = message.useMessage();
 
 
     const [data, setData] = useState({
@@ -30,10 +28,7 @@ const Signup = () => {
         axios.post(url, data)
             .then(resp => {
                 if (resp.status === 201) {
-                    messageApi.open({
-                        type: 'success',
-                        content: 'This is a success message',
-                    });
+
 
                     alert('User registered successfully')
                 }
@@ -46,11 +41,8 @@ const Signup = () => {
             return response;
         }, err => {
             if (err.response.status === 409) {
-                messageApi.open({
-                    type: 'error',
-                    content: 'This user already exist !!!',
-                });
-                // alert('This user already exist !!!')
+
+                alert('This user already exist !!!')
             } else if (err.response.status === 500) {
                 alert('A problem occurred while saving information')
             }
