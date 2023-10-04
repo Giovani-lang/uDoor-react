@@ -30,7 +30,7 @@ const Signup = () => {
             .then(resp => {
                 if (resp.status === 201) {
                     // message.success('User registered')
-                    window.location = '/signin';
+                    window.location = '/';
                 }
 
             })

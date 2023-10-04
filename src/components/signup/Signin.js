@@ -5,7 +5,7 @@ const signin = () => {
     return (
         <div>
             Already have an account?
-            <NavLink to="/signin">
+            <NavLink to="/">
                 Sign In
             </NavLink>
         </div>

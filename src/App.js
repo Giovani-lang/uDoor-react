@@ -5,7 +5,7 @@ import { Routes, BrowserRouter, Route } from 'react-router-dom';
 import Signing from './pages/signin/Signing';
 import Navigation from './components/signin/Navigation';
 import NavAccueil from './components/home/NavAccueil';
-import Navsignup from './components/signup/Navsignup';
+import Signup from './pages/signup/Signup';
 import './App.css';
 
 
@@ -15,13 +15,12 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Signing />} />
         <Route path='/signin' element={<Navigation />} />
-        <Route path='/signup' element={<Navsignup />} />
+        <Route path='/signup' element={<Signup />} />
         <Route path='/home' element={<NavAccueil />} />
         {/* <Route path='*' element={<Signin/>}/> */}
       </Routes>
     </BrowserRouter>
   );
-};
 };
 
 export default App;
