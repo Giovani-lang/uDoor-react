@@ -13,14 +13,15 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Signing/>}/>
-        <Route path='/signin' element={<Navigation/>}/>
-        <Route path='/signup' element={<Navsignup/>}/>    
-        <Route path='/home' element={<NavAccueil/>}/> 
+        <Route path='/' element={<Signing />} />
+        <Route path='/signin' element={<Navigation />} />
+        <Route path='/signup' element={<Navsignup />} />
+        <Route path='/home' element={<NavAccueil />} />
         {/* <Route path='*' element={<Signin/>}/> */}
-      </Routes>  
+      </Routes>
     </BrowserRouter>
   );
+};
 };
 
 export default App;
@@ -31,4 +32,4 @@ export default App;
 
 
 
-  
+
