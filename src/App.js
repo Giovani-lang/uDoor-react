@@ -1,12 +1,12 @@
 import React from 'react';
 import { Routes, BrowserRouter, Route } from 'react-router-dom';
 
-// import Signin from './pages/signin/Signin';
 import Signing from './pages/signin/Signing';
 import Navigation from './components/signin/Navigation';
-import NavAccueil from './components/home/NavAccueil';
 import Signup from './pages/signup/Signup';
 import './App.css';
+import Home from './pages/home/Home';
+import User from './pages/user/User';
 
 
 const App = () => {
@@ -16,7 +16,8 @@ const App = () => {
         <Route path='/' element={<Signing />} />
         <Route path='/signin' element={<Navigation />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/home' element={<NavAccueil />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/user' element={<User/>} />
         {/* <Route path='*' element={<Signin/>}/> */}
       </Routes>
     </BrowserRouter>
