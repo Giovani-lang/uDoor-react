@@ -50,32 +50,34 @@ const Signup = () => {
 
 
     return (
-        <div className='global'>
-            <div className='form'>
-                <div id='logo1'>
-                    <img src={Logo} alt="Logo" />
+        <div className='bgform'>
+            <div className='global'>
+                <div className='form'>
+                    <div id='logo1'>
+                        <img src={Logo} alt="Logo" />
+                    </div>
+                    <h1>Create your <br /> account </h1>
+                    <form onSubmit={handleSubmit} className='registration-form'>
+                        <input onChange={handleInput} name="firstname" type='text' placeholder='firstname' required />
+                        <input onChange={handleInput} name="lastname" type='text' placeholder='lastname' required />
+                        <input onChange={handleInput} name="email" type='email' placeholder='email' required />
+                        <input onChange={handleInput} name="password" type='password' placeholder='password' required />
+                        <select onChange={handleInput} name='profil' required>
+                            <option selected disabled >Profil</option>
+                            <option>User</option>
+                            <option>Admin</option>
+                        </select>
+                        <input onChange={handleInput} name="phone" type='text' placeholder='phone' required />
+                        <button>Register</button>
+                    </form>
+                    <Signin />
                 </div>
-                <h1>Create your <br /> account </h1>
-                <form onSubmit={handleSubmit} className='registration-form'>
-                    <input onChange={handleInput} name="firstname" type='text' placeholder='firstname' required />
-                    <input onChange={handleInput} name="lastname" type='text' placeholder='lastname' required />
-                    <input onChange={handleInput} name="email" type='email' placeholder='email' required />
-                    <input onChange={handleInput} name="password" type='password' placeholder='password' required />
-                    <select onChange={handleInput} name='profil' required>
-                        <option selected disabled >Profil</option>
-                        <option>User</option>
-                        <option>Admin</option>
-                    </select>
-                    <input onChange={handleInput} name="phone" type='text' placeholder='phone' required />
-                    <button>Register</button>
-                </form>
-                <Signin />
-            </div>
-            <div className='image'>
-                <div id='logo2'>
-                    <img src={Logo} alt="Logo" />
+                <div className='image'>
+                    <div id='logo2'>
+                        <img src={Logo} alt="Logo" />
+                    </div>
+                    <img src={Wallpaper} alt="wallpaper" className='img1' />
                 </div>
-                <img src={Wallpaper} alt="wallpaper" className='img1' />
             </div>
         </div>
     );
