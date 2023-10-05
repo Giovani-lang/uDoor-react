@@ -1,25 +1,36 @@
-import React from 'react';
-import { Routes, BrowserRouter, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import Signing from './pages/signin/Signing';
-import Navigation from './components/signin/Navigation';
-import Signup from './pages/signup/Signup';
+
+
+
 import './App.css';
-import Home from './pages/home/Home';
-import User from './pages/user/User';
-
+import Content from './components/content/Content';
+import Sidebar from './components/sidebar/Sidebar';
 
 const App = () => {
+  const [isConnect, setIsConnect] = useState(false);
+
+useEffect (() =>{
+  if(isConnect ){    
+   window.location = '/Signin'; 
+   
+  } else if(setIsConnect === true ){
+    window.location = '/';
+  }
+})
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Signing />} />
-        <Route path='/signin' element={<Navigation />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/user' element={<User/>} />
-        {/* <Route path='*' element={<Signin/>}/> */}
-      </Routes>
+      <div style={{ display: 'flex' }}>
+        <div>
+          <Sidebar />
+        </div>
+        <div>
+          <Content />
+        </div>
+      </div>
+
     </BrowserRouter>
   );
 };

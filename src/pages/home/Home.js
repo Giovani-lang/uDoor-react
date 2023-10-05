@@ -3,10 +3,7 @@ import Sidebar from '../../components/sidebar/Sidebar';
 
 const Home = () => {
     return (
-        <div style={{display:'flex'}}>
-           <div>
-           <Sidebar />
-           </div>
+        <div >
             <div>
                <h1>
                Welcome to upowa

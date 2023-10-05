@@ -19,7 +19,7 @@ function getItem(label, key, icon, children) {
     };
 }
 const items = [
-    getItem(<NavLink to ='/home'>Accueil</NavLink>, '1', <PieChartOutlined />),
+    getItem(<NavLink to ='/'>Accueil</NavLink>, '1', <PieChartOutlined />),
     getItem(<NavLink to ='/user'>User</NavLink>, '2', <DesktopOutlined />),
     getItem('User', 'sub1', <UserOutlined />, [
         getItem('Tom', '3'),
