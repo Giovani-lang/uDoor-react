@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState, createContext } from "react";
 import Navigation from '../../components/signin/Navigation';
 import './signin.css';
 import logo from '../../assets/logo upowa.png'
 import wallpaper from '../../assets/wallpaper.png'
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+import { message, Form,  Input, Button} from "antd";
+
+
 
 const Signing = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [response, getResponse] = useState("");
+   
+    const history = useNavigate();
 
-
+    useEffect(()=>{
+        sessionStorage.clear()
+    })
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(email, password);
@@ -39,15 +45,17 @@ const Signing = () => {
                     console.log(expectedPassword);
                     // Comparer le mot de passe saisi avec le mot de passe attendu
                     if (password === expectedPassword) {
-                        console.log("Connexion réussie");
-                        window.location = "/home";
+                        sessionStorage.setItem('email', email);                                    
+                        message.success("Connexion réussie");                        
+                        history('/')
+                        
 
                     } else {
-                        console.log("Le mot de passe  est incorrect.");
+                        message.warning("Le mot de passe  est incorrect.");
                     }
 
                 } else {
-                    console.log(alert("Un problème s'est produit durant la récupération des informations"));
+                    message.error("Un problème s'est produit durant la récupération des informations");
                 }
 
                 // code html du formulaire de login 
@@ -82,18 +90,52 @@ const Signing = () => {
                     <div className="form-login">
                         <h1>Welcome back to <br /><font color="blue">Udoor</font></h1>
                         <small>Sign in to your account below</small>
-                        <form className='text' onSubmit={handleSubmit}>
+                        <Form  onSubmit={handleSubmit}>
                             <div className="field-input">
-                                <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder='Email' className='input'
-                                    id="email" required />
+                                <Form.Item                                 
+                                name={"email"}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please, enter your email',
+
+                                    },
+                                    {
+                                        type: "email",
+                                        message: 'Email is not valid',
+                                        warningOnly: true,
+
+                                    },
+                                ]}>
+                                <Input value={email} onChange={(e) => setEmail(e.target.value)}  placeholder='Email'
+                                    id="email" 
+                                    style={{width:'400px'}}  />
+                                </Form.Item>    
                             </div>
                             <div className="field-input">
-                                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Password' className='input'
-                                    id="password" required />
+                               <Form.Item
+                                name={"password"}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please, enter your password',
+
+                                    },
+                                    {
+                                        type: "password",                                        
+                                        message: 'password is not valid',
+                                        warningOnly: true,
+
+                                    },
+                                ]}>
+                                <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Password' className='input'
+                                    id="password"
+                                    style={{width:'400px'}}   />
+                               </Form.Item>      
                             </div>
-                            <button className="btn btn-primary">Log In</button>
+                            <Button htmlType= "submit" type="primary" style={{width:'150px'}} onClick={handleSubmit}>Log In</Button>
                             <div className="navigation"><Navigation /></div>
-                        </form>
+                        </Form>
                     </div>
                 </div>
                 <div className='container-image'>

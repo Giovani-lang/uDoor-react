@@ -3,11 +3,15 @@ import { NavLink } from 'react-router-dom';
 
 const signin = () => {
     return (
-        <div>
+        <div> 
+            <ul>
+            <small>
             Already have an account?
             <NavLink to="/Signin">
                 Sign In
             </NavLink>
+            </small>
+            </ul>
         </div>
     );
 };
