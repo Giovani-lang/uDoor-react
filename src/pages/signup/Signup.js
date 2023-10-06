@@ -6,6 +6,8 @@ import logo from "../../assets/logo upowa.png";
 import axios from 'axios';
 import { message, Form, Input, Button, Select, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { MailOutlined, LockOutlined, UserOutlined, PhoneOutlined } from '@ant-design/icons';
+
 
 const { Option } = Select;
 
@@ -79,7 +81,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input onChange={handleInput} placeholder='firstname' style={{ width: '250px', marginRight: '10px' }} />
+                                    <Input onChange={handleInput} placeholder='firstname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
                                 </Form.Item>
                                 <Form.Item
                                     name={"lastname"}
@@ -97,7 +99,7 @@ const Signup = () => {
                                         },
                                     ]}
                                 >
-                                    <Input onChange={handleInput} placeholder='lastname' style={{ width: '250px', marginRight: '10px' }} />
+                                    <Input onChange={handleInput} placeholder='lastname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
@@ -117,7 +119,7 @@ const Signup = () => {
                                         },
                                     ]}
                                 >
-                                    <Input onChange={handleInput} placeholder='email' style={{ width: '250px', marginRight: '10px' }} />
+                                    <Input onChange={handleInput} placeholder='email' style={{ width: '250px', marginRight: '10px' }} prefix={<MailOutlined />} />
 
                                 </Form.Item>
                                 <Form.Item
@@ -135,7 +137,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input.Password onChange={handleInput} placeholder='password' style={{ width: '250px', marginRight: '10px' }} />
+                                    <Input.Password onChange={handleInput} placeholder='password' style={{ width: '250px', marginRight: '10px' }} prefix={<LockOutlined />} />
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
@@ -168,7 +170,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input onChange={handleInput} placeholder='phone' style={{ width: '250px', marginRight: '10px' }} />
+                                    <Input onChange={handleInput} placeholder='phone' style={{ width: '250px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
                                 </Form.Item>
                             </div>
                             <Form.Item>

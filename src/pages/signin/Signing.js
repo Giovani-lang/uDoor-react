@@ -4,19 +4,18 @@ import './signin.css';
 import logo from '../../assets/logo upowa.png'
 import wallpaper from '../../assets/wallpaper.png'
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
-import { message, Form,  Input, Button} from "antd";
-
-
+import { message, Form, Input, Button } from "antd";
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 const Signing = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-   
+
     const history = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         sessionStorage.clear()
     })
     const handleSubmit = async (e) => {
@@ -45,10 +44,10 @@ const Signing = () => {
                     console.log(expectedPassword);
                     // Comparer le mot de passe saisi avec le mot de passe attendu
                     if (password === expectedPassword) {
-                        sessionStorage.setItem('email', email);                                    
-                        message.success("Connexion réussie");                        
+                        sessionStorage.setItem('email', email);
+                        message.success("Connexion réussie");
                         history('/')
-                        
+
 
                     } else {
                         message.warning("Le mot de passe  est incorrect.");
@@ -67,6 +66,7 @@ const Signing = () => {
             return response;
         }, error => {
             if (error.response.status === 404) {
+
                 Swal.fire({
                     icon: 'error',
                     title: "L'adresse email est incorrect",
@@ -90,50 +90,54 @@ const Signing = () => {
                     <div className="form-login">
                         <h1>Welcome back to <br /><font color="blue">Udoor</font></h1>
                         <small>Sign in to your account below</small>
-                        <Form  onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit}>
                             <div className="field-input">
-                                <Form.Item                                 
-                                name={"email"}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please, enter your email',
+                                <Form.Item
+                                    name={"email"}
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please, enter your email',
 
-                                    },
-                                    {
-                                        type: "email",
-                                        message: 'Email is not valid',
-                                        warningOnly: true,
+                                        },
+                                        {
+                                            type: "email",
+                                            message: 'Email is not valid',
+                                            warningOnly: true,
 
-                                    },
-                                ]}>
-                                <Input value={email} onChange={(e) => setEmail(e.target.value)}  placeholder='Email'
-                                    id="email" 
-                                    style={{width:'400px'}}  />
-                                </Form.Item>    
+                                        },
+                                    ]}>
+                                    <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email'
+                                        id="email"
+                                        style={{ width: '400px' }}
+                                        prefix={<MailOutlined />}
+                                    />
+                                </Form.Item>
                             </div>
                             <div className="field-input">
-                               <Form.Item
-                                name={"password"}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please, enter your password',
+                                <Form.Item
+                                    name={"password"}
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please, enter your password',
 
-                                    },
-                                    {
-                                        type: "password",                                        
-                                        message: 'password is not valid',
-                                        warningOnly: true,
+                                        },
+                                        {
+                                            type: "password",
+                                            message: 'password is not valid',
+                                            warningOnly: true,
 
-                                    },
-                                ]}>
-                                <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Password' className='input'
-                                    id="password"
-                                    style={{width:'400px'}}   />
-                               </Form.Item>      
+                                        },
+                                    ]}>
+                                    <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Password' className='input'
+                                        id="password"
+                                        style={{ width: '400px' }}
+                                        prefix={<LockOutlined />}
+                                    />
+                                </Form.Item>
                             </div>
-                            <Button htmlType= "submit" type="primary" style={{width:'150px'}} onClick={handleSubmit}>Log In</Button>
+                            <Button htmlType="submit" type="primary" style={{ width: '150px' }} onClick={handleSubmit}>Log In</Button>
                             <div className="navigation"><Navigation /></div>
                         </Form>
                     </div>
