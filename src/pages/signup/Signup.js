@@ -141,21 +141,7 @@ const Signup = () => {
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
-                                <Form.Item >
-                                    <Space.Compact>
-                                        <Form.Item
-                                            name={'profil'}
-                                            noStyle
-                                            rules={[{ required: true, message: 'Profil is required' }]}
-                                        >
-                                            <Select placeholder="profil" style={{ width: '250px', marginRight: '10px' }}>
-                                                <Option value="User">User</Option>
-                                                <Option value="Admin">Admin</Option>
-                                            </Select>
-                                        </Form.Item>
-                                    </Space.Compact>
-                                </Form.Item>
-                                <Form.Item
+                            <Form.Item
                                     name={"phone"}
                                     rules={[
                                         {
@@ -172,6 +158,21 @@ const Signup = () => {
                                     ]}>
                                     <Input onChange={handleInput} placeholder='phone' style={{ width: '250px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
                                 </Form.Item>
+                                <Form.Item >
+                                    <Space.Compact>
+                                        <Form.Item
+                                            name={'profil'}
+                                            noStyle
+                                            rules={[{ required: true, message: 'Profil is required' }]}
+                                        >
+                                            <Select placeholder="profil" style={{ width: '250px', marginRight: '10px' }}>
+                                                <Option value="User">User</Option>
+                                                <Option value="Admin">Admin</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Space.Compact>
+                                </Form.Item>
+                               
                             </div>
                             <Form.Item>
                                 <Button htmlType='submit' type="primary" style={{ width: '150px' }} onClick={handleSubmit}>Register</Button>
