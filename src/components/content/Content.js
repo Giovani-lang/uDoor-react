@@ -13,11 +13,11 @@ const Content = () => {
     return (
         <div>
             <Routes>
-                
+
                 <Route path='/user' element={<User />} />
                 <Route path='*' element={<Home />} />
-                <Route path='/Signin' element={<Signing/>}/>
-                <Route path='/Signup' element={<Signup/>}/>
+                <Route path='/Signin' element={<Signing />} />
+                <Route path='/Signup' element={<Signup />} />
             </Routes>
         </div>
     );
