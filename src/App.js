@@ -14,13 +14,14 @@ const App = () => {
 
   return (
     <BrowserRouter>
-       <div style={{display:'flex', flexDirection:'row' }}> 
-       
-       
-       <Sidebar />     
-       <Content />
+      <div style={{ display: 'flex' }}>
+        <div>
+          <Sidebar />
+        </div>
+        <div>
+          <Content />
+        </div>
       </div>
-
     </BrowserRouter>
   );
 };
