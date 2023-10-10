@@ -112,4 +112,5 @@ select {
 } */
 Input {
     display: flex;
+    background-color: mediumblue;
 }

@@ -141,7 +141,7 @@ const Signup = () => {
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
-                            <Form.Item
+                                 <Form.Item
                                     name={"phone"}
                                     rules={[
                                         {

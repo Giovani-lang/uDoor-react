@@ -1,6 +1,9 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Home.css'
+import ampoule from '../../assets/ampoule.png'
+import SignOut from '../../components/home/SignOut';
 
 const Home = () => {
     const history = useNavigate();
@@ -9,17 +12,19 @@ const Home = () => {
         if (email === '' || email === null) {
             history('/Signin')
         }
+       
 
     }, []);
 
     return (
-        <div >
-            <div>
-                <h1>
-                    Welcome to upowa
-                </h1>
-            </div>
+        <div className='container'>
+        <div style={{marginTop:'10px'}}><SignOut/></div>
+        
         </div>
+       
+        
+        
+        
     );
 };
 
