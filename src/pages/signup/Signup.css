@@ -2,7 +2,7 @@
 
     display: flex;
     justify-content: center;
-  margin-top: 50px;
+    margin-top: 50px;
 
 
 
@@ -102,14 +102,6 @@
     background-color: rgb(114, 114, 244);
 }
 
-/* Input,
-select {
-    text-align: left;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    margin: 5px;
-    width: 250px;
-} */
 Input {
     display: flex;
     background-color: mediumblue;
