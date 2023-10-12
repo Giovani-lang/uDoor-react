@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Table, Space, Button } from 'antd';
+import { Table, Space } from 'antd';
 import axios from 'axios';
+import AddUser from '../../components/user/AddUser';
 
 const User = () => {
-
+    const url = 'https://test-back.authentify.upowa.org/api/user/all?page=1&size=10000'
     const history = useNavigate();
     const [data, setData] = useState([]);
-    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -16,8 +16,9 @@ const User = () => {
         if (email === '' || email === null) {
             history('/Signin')
         };
-        getUsers(1);
+        getUsers();
     }, []);
+
 
     const columns = [
         {
@@ -47,13 +48,11 @@ const User = () => {
         },
     ];
 
-    const getUsers = (page) => {
+    const getUsers = () => {
         setLoading(true)
-        axios.get(`https://test-back.authentify.upowa.org/api/user/all?page=${page}&size=8`)
+        axios.get(url)
             .then((resp) => {
-                console.log(resp)
                 setData(resp.data.content)
-                setTotalPages(resp.data.totalPages)
                 setLoading(false)
             }
             )
@@ -62,18 +61,15 @@ const User = () => {
     return (
         <div>
 
-            <div style={{ marginLeft: '200px' }}>
-                <Button style={{ margin: 8 }}>Add user</Button>
+            <div style={{ marginLeft: '20px', width: '80vw' }}>
+                <AddUser />
                 <Table
                     loading={loading}
                     columns={columns}
                     dataSource={data}
                     pagination={{
                         pageSize: 8,
-                        total: totalPages,
-                        onChange: (page) => {
-                            getUsers(page);
-                        }
+                        total: data.totaPages
                     }}
                 />
             </div>

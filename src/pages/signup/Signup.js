@@ -12,6 +12,7 @@ import { MailOutlined, LockOutlined, UserOutlined, PhoneOutlined } from '@ant-de
 const { Option } = Select;
 
 const Signup = () => {
+
     const url = "https://test-back.authentify.upowa.org/api/user/add";
 
     const history = useNavigate();
@@ -46,9 +47,10 @@ const Signup = () => {
             return response;
         }, err => {
             if (err.response.status === 409) {
-                message.warning('This user already exist !!!')
+                console.log('This user already exist !')
+                message.warning('This user already exist, try again !')
             } else if (err.response.status === 500) {
-                message.warning('A problem occurred while saving information')
+                message.warning('A problem occurred while saving information !')
             }
         })
     };
@@ -141,7 +143,7 @@ const Signup = () => {
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
-                                 <Form.Item
+                                <Form.Item
                                     name={"phone"}
                                     rules={[
                                         {
@@ -172,7 +174,7 @@ const Signup = () => {
                                         </Form.Item>
                                     </Space.Compact>
                                 </Form.Item>
-                               
+
                             </div>
                             <Form.Item>
                                 <Button htmlType='submit' type="primary" style={{ width: '150px' }} onClick={handleSubmit}>Register</Button>

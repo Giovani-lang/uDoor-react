@@ -1,30 +1,25 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css'
-import ampoule from '../../assets/ampoule.png'
-import SignOut from '../../components/home/SignOut';
+import { Image } from 'antd';
+import imgHome from '../../assets/ampoule.png'
+
 
 const Home = () => {
+
     const history = useNavigate();
+
     useEffect(() => {
         let email = sessionStorage.getItem('email');
         if (email === '' || email === null) {
             history('/Signin')
         }
-       
-
     }, []);
-
     return (
-        <div className='container'>
-        <div style={{marginTop:'10px'}}><SignOut/></div>
-        
-        </div>
-       
-        
-        
-        
+        <div>
+            <h1>Welcome to uDoor</h1>
+        </div >
     );
 };
 

@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import Content from './components/content/Content';
 import Sidebar from './components/sidebar/Sidebar';
-import Head from './components/Head/Head'
-import SignOut from './components/home/SignOut';
 
 const App = () => {
 

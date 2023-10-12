@@ -66,12 +66,7 @@ const Signing = () => {
             return response;
         }, error => {
             if (error.response.status === 404) {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: "L'adresse email est incorrect",
-                    showConfirmButton: false, timer: 2000
-                })
+                message.warning("L'adresse email est incorrect.");
             }
 
         });
