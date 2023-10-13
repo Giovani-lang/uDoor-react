@@ -1,12 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import './Error.css'
 
 const Error = () => {
     return (
-        <div>
-            <h1>404 Error</h1>
-            <h1>Page Not Found</h1>
-            <small>Click <NavLink to='/'>here</NavLink> !</small>
+        <div className='bgerror'>
+            <div>
+                <h1>404 Error</h1>
+                <h1>Page Not Found</h1>
+            </div>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import Content from './components/content/Content';
@@ -11,11 +11,11 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', position: 'absolute', top: '0px' }}>
         <div>
           <Sidebar />
         </div>
-        <div>
+        <div style={{ marginTop: '-21px' }}>
           <Content />
         </div>
       </div>
@@ -25,6 +25,7 @@ const App = () => {
 
 
 export default App;
+
 
 
 

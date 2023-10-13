@@ -1,57 +1,41 @@
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import {
     HomeOutlined,
     TeamOutlined,
     LogoutOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Menu } from 'antd';
 import SignOut from '../home/SignOut';
-const { Sider } = Layout;
-function getItem(label, key, icon, children) {
+import { NavLink } from 'react-router-dom';
+function getItem(label, key, icon, children, type) {
     return {
         key,
         icon,
         children,
         label,
+        type,
     };
 }
 const items = [
     getItem(<NavLink to='/'>Home</NavLink>, '1', <HomeOutlined />),
     getItem(<NavLink to='/user'>Users</NavLink>, '2', <TeamOutlined />),
+    getItem(<SignOut />, '3', <LogoutOutlined style={{ color: 'red' }} />)
 
 ];
-
 const Sidebar = () => {
-    const location = useLocation()
-    const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
-    const itemsWithLogout = useMemo(() => {
-        return [...items, getItem(<SignOut />, '3', <LogoutOutlined style={{ color: 'red' }} />)];
-    }, [items]);
-    if (
-        location.pathname === '/'
-        || location.pathname === '/user'
-    ) {
-        return (
-            <Layout
-                style={{
-                    minHeight: '95vh',
-                    marginTop: '-10px',
-                    marginLeft: '-14px',
-                }}
-            >
-                <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                    <div className="demo-logo-vertical" style={{ width: '10px' }} />
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={itemsWithLogout} />
-                </Sider>
-
-            </Layout>
-        );
-    } else {
-        return null;
-    }
+    return (
+        <Menu
+            style={{
+                width: 256,
+                minHeight: '100vh',
+                marginLeft: '-14px',
+            }}
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            mode="inline"
+            items={items}
+            theme='dark'
+        />
+    );
 };
 export default Sidebar;

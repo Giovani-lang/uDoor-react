@@ -61,7 +61,7 @@ const User = () => {
     return (
         <div>
 
-            <div style={{ marginLeft: '20px', width: '80vw' }}>
+            <div style={{ marginLeft: '20px', width: '80vw', marginTop: '25px' }}>
                 <AddUser />
                 <Table
                     loading={loading}

@@ -1,7 +1,18 @@
-/* .bgHome {
-    background: lightblue url("") no-repeat fixed center;
-    width: 87VW;
-    position: absolute;
-    height: 100VH;
-    margin-top: 0%;
-} */
+.bgimg {
+    top: 0;
+    left: 0;
+    width: 1116px;
+    min-height: 100vh;
+    z-index: 1;
+    background: lightblue url(../../assets/ampoule.jpeg) no-repeat fixed 50% 50%;
+    background-size: cover;
+}
+
+img {
+    float: right;
+    margin: 50px;
+}
+
+h1 {
+    color: white;
+}

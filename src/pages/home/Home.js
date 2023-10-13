@@ -2,8 +2,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css'
-import { Image } from 'antd';
-import imgHome from '../../assets/ampoule.png'
+import logo from '../../assets/logo upowa.png'
+
 
 
 const Home = () => {
@@ -17,8 +17,11 @@ const Home = () => {
         }
     }, []);
     return (
-        <div>
-            <h1>Welcome to uDoor</h1>
+        <div className="bgimg">
+            <div >
+                <img src={logo} />
+                <h1>Welcome to uDoor</h1>
+            </div>
         </div >
     );
 };
