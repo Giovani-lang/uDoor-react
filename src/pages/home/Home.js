@@ -19,8 +19,8 @@ const Home = () => {
     return (
         <div className="bgimg">
             <div >
-                <img src={logo} />
-                <h1>Welcome to uDoor</h1>
+                <img src={logo} className='header' />
+                <h1 className='title'>Welcome to uDoor</h1>
             </div>
         </div >
     );

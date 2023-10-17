@@ -8,11 +8,11 @@
     background-size: cover;
 }
 
-img {
+.header {
     float: right;
     margin: 50px;
 }
 
-h1 {
+.title {
     color: white;
 }

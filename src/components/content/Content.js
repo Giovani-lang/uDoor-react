@@ -5,6 +5,7 @@ import User from '../../pages/user/User';
 import Signing from '../../pages/signin/Signing';
 import Signup from '../../pages/signup/Signup';
 import Error from '../../pages/error/Error';
+import UserDetails from '../user/UserDetails';
 
 
 
