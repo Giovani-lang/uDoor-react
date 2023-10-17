@@ -17,8 +17,8 @@ const Home = () => {
     }, []);
 
     return (
-        <div className='container'>
-        <div style={{marginTop:'10px'}}><SignOut/></div>
+        <div >
+       
         
         </div>
        

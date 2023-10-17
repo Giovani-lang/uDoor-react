@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import NavAccueil from '../../components/home/NavAccueil';
-import {
-    AppstoreOutlined,
-    TeamOutlined,
-} from '@ant-design/icons';
+import {AppstoreOutlined, TeamOutlined, LogoutOutlined,} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { NavLink } from 'react-router-dom';
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 function getItem(label, key, icon, children) {
     return {
         key,
@@ -18,6 +15,8 @@ function getItem(label, key, icon, children) {
 const items = [
     getItem(<NavLink to='/'>Home</NavLink>, '1', <AppstoreOutlined />),
     getItem(<NavLink to='/user'>Users</NavLink>, '2', <TeamOutlined />),
+    getItem(<NavLink to='/Signin'> LOGOUT</NavLink>, '3', <LogoutOutlined/>),
+    
 ];
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);

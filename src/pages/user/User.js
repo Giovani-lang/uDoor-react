@@ -1,16 +1,35 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Table, Space, Button } from 'antd';
 import axios from 'axios';
+import UpdateUser from '../../components/updateUser/UpdateUser';
+import Details from '../../components/detailsUser/Details';
+import { getAllByDisplayValue } from '@testing-library/react';
 
 const User = () => {
 
     const history = useNavigate();
     const [data, setData] = useState([]);
+    const [user, setUser] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
-
+    const [open, setOpen] = useState(false);
+    const [email, setEmail]=useState([]);
+    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+      };
+   
+    const handleOk = () => {
+        setIsModalOpen(true);
+      };
+      const handleCancel = () => {
+        setIsModalOpen(false);
+      };
+   
+   
     useEffect(() => {
         let email = sessionStorage.getItem('email');
         if (email === '' || email === null) {
@@ -18,34 +37,6 @@ const User = () => {
         };
         getUsers(1);
     }, []);
-
-    const columns = [
-        {
-            title: 'Firstname',
-            dataIndex: 'firstname',
-        },
-        {
-            title: 'Lastname',
-            dataIndex: 'lastname',
-        },
-        {
-            title: 'Email',
-            dataIndex: 'email',
-        },
-        {
-            title: 'Profil',
-            dataIndex: 'profil',
-        },
-        {
-            title: 'Action',
-            render: (_, record) => (
-                <Space size="middle">
-                    <a>Update</a>
-                    <a>View</a>
-                </Space>
-            ),
-        },
-    ];
 
     const getUsers = (page) => {
         setLoading(true)
@@ -55,12 +46,78 @@ const User = () => {
                 setData(resp.data.content)
                 setTotalPages(resp.data.totalPages)
                 setLoading(false)
+                setUser(resp.data.content.email)
+                console.log(email)
+                
             }
             )
             .catch(err => console.log(err))
     }
+    
+
+    
+        // Changez la fonction pour ne déclencher le bouton View que si l'utilisateur clique dessus.
+        const handleClick = (record) => {
+          setIsModalOpen(true);
+          if (user.length > 0) {
+            const filteredUser = user.filter(user => user.email === record.email);
+            if (filteredUser.length > 0) {
+              setEmail(filteredUser[0]);
+            } 
+          }
+        }
+    
+        
+    
+    //   useEffect(() => {
+    //     onView();
+    //   }, []);
+   
+
+    const columns = [
+        {
+            title: 'Firstname',
+            dataIndex: 'firstname',
+            key: 'firstname'
+        },
+        {
+            title: 'Lastname',
+            dataIndex: 'lastname',
+            key: 'lastname'
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email'
+        },
+        {
+            title: 'Profil',
+            dataIndex: 'profil',
+            key: 'profil'
+        },
+        {
+            title: 'Action',
+            render: (_, record) => (
+                <Space size="middle">
+                    {/* <Button type="primary" onClick={showModal}> View </Button>
+                 <Details open={isModalOpen} 
+                 onCancel={handleCancel} 
+                 email={email}
+                 /> */}
+                 <NavLink to={`/Details/${data}`}>View</NavLink>
+                    <a>update</a>
+                </Space>
+            ),
+            key: 'action',
+        },
+    ];
+
+   
+
+   
     return (
         <div>
+
 
             <div style={{ marginLeft: '200px' }}>
                 <Button style={{ margin: 8 }}>Add user</Button>
@@ -80,5 +137,6 @@ const User = () => {
         </div>
     );
 };
+
 
 export default User;
