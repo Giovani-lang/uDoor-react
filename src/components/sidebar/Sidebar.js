@@ -1,44 +1,41 @@
-import React, { useState } from 'react';
-import NavAccueil from '../../components/home/NavAccueil';
-import {AppstoreOutlined, TeamOutlined, LogoutOutlined,} from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import React from 'react';
+import {
+    HomeOutlined,
+    TeamOutlined,
+    LogoutOutlined
+} from '@ant-design/icons';
+import { Menu } from 'antd';
+import SignOut from '../home/SignOut';
 import { NavLink } from 'react-router-dom';
-const { Sider } = Layout;
-function getItem(label, key, icon, children) {
+function getItem(label, key, icon, children, type) {
     return {
         key,
         icon,
         children,
         label,
+        type,
     };
 }
 const items = [
-    getItem(<NavLink to='/'>Home</NavLink>, '1', <AppstoreOutlined />),
+    getItem(<NavLink to='/'>Home</NavLink>, '1', <HomeOutlined />),
     getItem(<NavLink to='/user'>Users</NavLink>, '2', <TeamOutlined />),
-    getItem(<NavLink to='/Signin'> LOGOUT</NavLink>, '3', <LogoutOutlined/>),
-    
+    getItem(<SignOut />, '3', <LogoutOutlined style={{ color: 'red' }} />)
+
 ];
 const Sidebar = () => {
-    const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
-
-
     return (
-        <Layout
+        <Menu
             style={{
-                minHeight: '95vh',
-                marginTop: '-10px',
+                width: 256,
+                minHeight: '100vh',
                 marginLeft: '-14px',
-
             }}
-        >
-            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div className="demo-logo-vertical" style={{width:'10px' }} />
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
-            </Sider>
-        </Layout>
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            mode="inline"
+            items={items}
+            theme='dark'
+        />
     );
 };
 export default Sidebar;

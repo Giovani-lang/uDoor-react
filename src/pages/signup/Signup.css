@@ -37,15 +37,6 @@
 
 }
 
-/* input {
-    width: 400px;
-    height: 37px;
-    border: solid 0.5px;
-    border-color: grey;
-    border-radius: 5px;
-} */
-
-
 
 .imageform {
     margin-left: 50px;
@@ -100,9 +91,4 @@
     height: 100vh;
     z-index: 1;
     background-color: rgb(114, 114, 244);
-}
-
-Input {
-    display: flex;
-    background-color: mediumblue;
 }

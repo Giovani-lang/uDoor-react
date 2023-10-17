@@ -1,14 +1,18 @@
-.container-img { 
-  background-image:url('https://thumbs.dreamstime.com/b/ampoule-d-eco-led-avec-le-panneau-solaire-et-la-turbine-de-vent-90470996.jpg');  
-  background-repeat: no-repeat;
-  background-position:bottom;
-  background-size: 60%;
-  height: 650px;
-  width: 2000px;
-  z-index: 0;
- 
- 
- 
-  
-  
-  }
+.bgimg {
+    top: 0;
+    left: 0;
+    width: 1116px;
+    min-height: 100vh;
+    z-index: 1;
+    background: lightblue url(../../assets/ampoule.jpeg) no-repeat fixed 50% 50%;
+    background-size: cover;
+}
+
+img {
+    float: right;
+    margin: 50px;
+}
+
+h1 {
+    color: white;
+}

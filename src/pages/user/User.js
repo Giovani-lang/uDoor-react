@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Table, Space, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Table, Space } from 'antd';
 import axios from 'axios';
-import UpdateUser from '../../components/updateUser/UpdateUser';
-import Details from '../../components/detailsUser/Details';
-import { getAllByDisplayValue } from '@testing-library/react';
+import AddUser from '../../components/user/AddUser';
 
 const User = () => {
-
+    const url = 'https://test-back.authentify.upowa.org/api/user/all?page=1&size=10000'
     const history = useNavigate();
     const [data, setData] = useState([]);
-    const [user, setUser] = useState([]);
-    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [email, setEmail]=useState([]);
@@ -35,16 +31,17 @@ const User = () => {
         if (email === '' || email === null) {
             history('/Signin')
         };
-        getUsers(1);
+        getUsers();
     }, []);
 
-    const getUsers = (page) => {
+
+    
+
+    const getUsers = () => {
         setLoading(true)
-        axios.get(`https://test-back.authentify.upowa.org/api/user/all?page=${page}&size=8`)
+        axios.get(url)
             .then((resp) => {
-                console.log(resp)
                 setData(resp.data.content)
-                setTotalPages(resp.data.totalPages)
                 setLoading(false)
                 setUser(resp.data.content.email)
                 console.log(email)
@@ -118,19 +115,15 @@ const User = () => {
     return (
         <div>
 
-
-            <div style={{ marginLeft: '200px' }}>
-                <Button style={{ margin: 8 }}>Add user</Button>
+            <div style={{ marginLeft: '20px', width: '80vw', marginTop: '25px' }}>
+                <AddUser />
                 <Table
                     loading={loading}
                     columns={columns}
                     dataSource={data}
                     pagination={{
                         pageSize: 8,
-                        total: totalPages,
-                        onChange: (page) => {
-                            getUsers(page);
-                        }
+                        total: data.totaPages
                     }}
                 />
             </div>

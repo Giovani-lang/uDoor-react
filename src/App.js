@@ -1,30 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
 import Content from './components/content/Content';
 import Sidebar from './components/sidebar/Sidebar';
-import { useNavigate } from 'react-router-dom';
-import Error from '../src/pages/Error/Error'
 
 const App = () => {
-
-
-
   return (
-
     <BrowserRouter>
-      
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', position: 'absolute', top: '0px' }}>
         <div>
           <Sidebar />
         </div>
-        <div>
+        <div style={{ marginTop: '-21px' }}>
           <Content />
-
-
         </div>
-
       </div>
     </BrowserRouter>
   );
@@ -32,6 +21,7 @@ const App = () => {
 
 
 export default App;
+
 
 
 
