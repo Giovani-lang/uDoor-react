@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Input, Modal, Select, Space, message } from 'antd';
 import { MailOutlined, LockOutlined, UserOutlined, PhoneOutlined, PlusCircleOutlined } from '@ant-design/icons';
@@ -145,7 +145,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
     );
 };
 
-const AddUser = () => {
+const AddUser = ({ onUserAdded }) => {
 
     const url = "https://test-back.authentify.upowa.org/api/user/add";
     const [open, setOpen] = useState(false);
@@ -154,7 +154,10 @@ const AddUser = () => {
             if (resp.status === 201) {
                 message.success('User registered')
                 setOpen(false);
+                onUserAdded()
+
             }
+
         }).catch(err => {
             console.log(err)
         })
