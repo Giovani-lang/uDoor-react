@@ -24,18 +24,22 @@ const User = () => {
         {
             title: 'Firstname',
             dataIndex: 'firstname',
+            key: 'firstname'
         },
         {
             title: 'Lastname',
             dataIndex: 'lastname',
+            key: 'lastname'
         },
         {
             title: 'Email',
             dataIndex: 'email',
+            key: 'email'
         },
         {
             title: 'Profil',
             dataIndex: 'profil',
+            key: 'profil'
         },
         {
             title: 'Action',
@@ -57,12 +61,15 @@ const User = () => {
             }
             )
             .catch(err => console.log(err))
-    }
+    };
+    const onUserAdded = () => {
+        getUsers()
+    };
     return (
         <div>
 
             <div style={{ marginLeft: '20px', width: '80vw', marginTop: '20px' }}>
-                <AddUser />
+                <AddUser onUserAdded={onUserAdded} />
                 <Table
                     loading={loading}
                     columns={columns}
