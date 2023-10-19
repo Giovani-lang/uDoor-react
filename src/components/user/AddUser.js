@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Input, Modal, Select, Space, message } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { MailOutlined, LockOutlined, UserOutlined, PhoneOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 
@@ -152,7 +151,7 @@ const AddUser = () => {
     const [open, setOpen] = useState(false);
     const onCreate = (values) => {
         axios.post(url, values).then(resp => {
-            if (resp === 201) {
+            if (resp.status === 201) {
                 message.success('User registered')
                 setOpen(false);
             }

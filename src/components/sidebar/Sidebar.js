@@ -7,6 +7,7 @@ import {
 import { Menu } from 'antd';
 import SignOut from '../home/SignOut';
 import { NavLink } from 'react-router-dom';
+import { Header } from 'antd/es/layout/layout';
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -24,18 +25,30 @@ const items = [
 ];
 const Sidebar = () => {
     return (
-        <Menu
-            style={{
-                width: 256,
-                minHeight: '100vh',
-                marginLeft: '-14px',
-            }}
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            mode="inline"
-            items={items}
-            theme='dark'
-        />
+        <div style={{
+            marginTop: "-19px"
+        }}>
+            <Header
+                style={{
+                    marginLeft: '-14px',
+                }}
+            >
+                <h1 style={{ color: 'white' }}>uDoor</h1>
+            </Header>
+            < Menu
+                style={{
+                    width: 256,
+                    minHeight: '92vh',
+                    marginLeft: '-14px',
+                }
+                }
+                // defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                mode="inline"
+                items={items}
+                theme='dark'
+            />
+        </div>
     );
 };
 export default Sidebar;
