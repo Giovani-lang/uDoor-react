@@ -12,9 +12,9 @@ const User = () => {
     const history = useNavigate();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    
-    
-   
+
+
+
     useEffect(() => {
         let email = sessionStorage.getItem('email');
         if (email === '' || email === null) {
@@ -49,7 +49,7 @@ const User = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <UserDetails user={record} />
-                    <UpdateUser user={record}/>
+                    <UpdateUser user={record} onUserAdded={onUserAdded} />
                 </Space>
             ),
         },
@@ -62,7 +62,7 @@ const User = () => {
                 // console.log(resp.data)
                 setData(resp.data.content)
                 setLoading(false)
-                
+
             }
             )
             .catch(err => console.log(err))

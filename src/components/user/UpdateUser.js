@@ -15,7 +15,7 @@ const getBase64 = (file) =>
 
 
 const { Option } = Select;
-const UpdateUser = ({ user }) => {
+const UpdateUser = ({ user, onUserAdded }) => {
     const [users, setUsers] = useState([""]);
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,6 +80,7 @@ const UpdateUser = ({ user }) => {
                 if (resp.status === 201) {
                     message.success('User update succesfull')
                     handleCancel()
+                    onUserAdded()
                 }
             }).catch(err => {
                 console.log(err)
@@ -120,7 +121,8 @@ const UpdateUser = ({ user }) => {
                         .then((values) => {
                             form.resetFields();
                             onUpdate(values);
-                            setIsModalOpen(true);})
+                            setIsModalOpen(true);
+                        })
                         .catch((info) => {
                             console.log('Update Failed:', info);
                         });
@@ -130,11 +132,11 @@ const UpdateUser = ({ user }) => {
                     form={form}
                     layout="vertical"
                     name="form_in_modal"
-                    onFinish={(values)=>{
+                    onFinish={(values) => {
                         console.log(values);
                     }}
-                    
-                    
+
+
                 >
                     <div style={{ display: 'flex' }}>
                         <Form.Item
@@ -274,22 +276,22 @@ const UpdateUser = ({ user }) => {
                         <Form.Item
                             name={"image_url"}
                             initialValue={values.image_url}>
-                            <div  style={{
-                                    marginLeft:50,
-                                    marginTop:-18,
-                                    padding: 16,
-                                  }}>
-                            <Upload 
-                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                listType="picture-card"
-                               
-                                fileList={fileList}
-                                //appercu de l'image avec l'icone eye
-                                onPreview={handlePreview}
-                                onChange={handleChange}
-                            >
-                                {fileList.length >= 1 ? null : uploadButton}
-                            </Upload>
+                            <div style={{
+                                marginLeft: 50,
+                                marginTop: -18,
+                                padding: 16,
+                            }}>
+                                <Upload
+                                    action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                                    listType="picture-card"
+
+                                    fileList={fileList}
+                                    //appercu de l'image avec l'icone eye
+                                    onPreview={handlePreview}
+                                    onChange={handleChange}
+                                >
+                                    {fileList.length >= 1 ? null : uploadButton}
+                                </Upload>
                             </div>
                             <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleClose}>
                                 <img
