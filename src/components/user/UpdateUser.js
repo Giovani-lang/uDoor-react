@@ -28,7 +28,15 @@ const UpdateUser = ({ user, onUserAdded }) => {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState([]);
+    const [fileList, setFileList] = useState([
+        {
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            url: 'src/assets/DefaultImageProfil.png',
+            im
+        }
+    ]);
     const newFileList = fileList;
     const handleClose = () => setPreviewOpen(false);
     const handlePreview = async (file) => {
@@ -295,6 +303,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
                                     listType="picture-card"
                                     method='POST'
                                     fileList={fileList}
+                                    defaultFileList={fileList}
                                     //appercu de l'image avec l'icone eye
                                     onPreview={handlePreview}
                                     onChange={handleChange}
