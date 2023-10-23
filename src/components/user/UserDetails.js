@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Image, Modal } from 'antd';
 import { EyeOutlined } from '@ant-design/icons'
+
+
 
 const UserDetails = ({ user }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +25,21 @@ const UserDetails = ({ user }) => {
             <Button type="primary" onClick={showModal} icon={<EyeOutlined />}>
                 View
             </Button>
-            <Modal title="Informations" open={isModalOpen} onCancel={handleCancel} footer={null}>
+            <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
+                <div
+                    style={{
+                        marginLeft: '130px'
+                    }}
+                ><Image
+                        src={user.image_url}
+                        style={{
+                            width: '200px',
+                            height: '200px',
+                            borderRadius: '20px',
+                            border: '1px solid'
+                        }}
+                    />
+                </div>
                 <p>Email: {user.email}</p>
                 <p>Firstname: {user.firstname}</p>
                 <p>Lastname: {user.lastname}</p>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Input, Modal, Upload, Select, Space, message } from 'antd';
 import { MailOutlined, PlusOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined, FileImageOutlined } from '@ant-design/icons';
@@ -12,11 +12,16 @@ const getBase64 = (file) =>
         reader.onerror = (error) => reject(error);
     });
 
+const normFile = (e) => {
+    if (Array.isArray(e)) {
+        return e;
+    }
 
+    return e && e.fileList;
+};
 
 const { Option } = Select;
 const UpdateUser = ({ user, onUserAdded }) => {
-    const [users, setUsers] = useState([""]);
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -59,14 +64,14 @@ const UpdateUser = ({ user, onUserAdded }) => {
 
 
     const [values, setValue] = useState({
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        password: user.password,
-        profil: user.profil,
-        phone: user.phone,
-        statut: user.statut,
-        image_url: user.image_url,
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        profil: "",
+        phone: "",
+        statut: "",
+        image_url: ""
     });
 
 
@@ -75,7 +80,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
         axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values)
             .then((resp) => {
                 console.log(resp);
-                setValue(resp.data)
+                setValue(resp.value)
                 console.log(values)
                 if (resp.status === 201) {
                     message.success('User update succesfull')
@@ -96,12 +101,16 @@ const UpdateUser = ({ user, onUserAdded }) => {
                 setIsModalOpen(true);
             }
         })
+        // Récupérer l'image du upload
+        const file = fileList[0].originFileObj;
+
+        // Convertir l'image en base64
+        const base64 = await getBase64(file);
+
+        // Mettre l'image en base64 dans la data en db
+        values['image_url'] = base64;
 
     };
-
-
-
-
 
     return (
         <>
@@ -141,7 +150,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
                     <div style={{ display: 'flex' }}>
                         <Form.Item
                             name={"firstname"}
-                            initialValue={values.firstname}
+                            initialValue={user.firstname}
                             rules={[
                                 {
                                     required: true,
@@ -275,36 +284,37 @@ const UpdateUser = ({ user, onUserAdded }) => {
                         </Form.Item>
                         <Form.Item
                             name={"image_url"}
-                            initialValue={values.image_url}>
+                            initialValue={user.image_url}>
                             <div style={{
                                 marginLeft: 50,
                                 marginTop: -18,
                                 padding: 16,
                             }}>
                                 <Upload
-                                    action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                                    action={'https://test-back.authentify.upowa.org/api/user/add'}
                                     listType="picture-card"
-
+                                    method='POST'
                                     fileList={fileList}
                                     //appercu de l'image avec l'icone eye
                                     onPreview={handlePreview}
                                     onChange={handleChange}
+
                                 >
                                     {fileList.length >= 1 ? null : uploadButton}
                                 </Upload>
                             </div>
-                            <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleClose}>
-                                <img
-                                    alt="example"
-                                    style={{
-                                        width: '100%',
-                                    }}
-                                    src={previewImage}
-                                />
-                            </Modal>
-
                         </Form.Item>
                     </div>
+                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleClose}>
+                        <img
+                            alt="example"
+                            style={{
+                                width: '100%',
+                            }}
+                            src={previewImage}
+                        />
+                    </Modal>
+
                 </Form>
             </Modal>
         </>
