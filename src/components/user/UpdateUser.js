@@ -34,7 +34,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
             name: 'image.png',
             status: 'done',
             url: 'src/assets/DefaultImageProfil.png',
-            im
+            
         }
     ]);
     const newFileList = fileList;

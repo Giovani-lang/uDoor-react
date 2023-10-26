@@ -33,7 +33,7 @@ const Sidebar = () => {
                     marginLeft: '-14px',
                 }}
             >
-                <h1 style={{ color: 'white' }}>uDoor</h1>
+                
             </Header>
             < Menu
                 style={{
