@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Input, Modal, Upload, Select, Space, message } from 'antd';
-import { MailOutlined, PlusOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined, FileImageOutlined } from '@ant-design/icons';
+import { MailOutlined, PlusOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined, MonitorOutlined } from '@ant-design/icons';
 
 
 const getBase64 = (file) =>
@@ -11,14 +11,6 @@ const getBase64 = (file) =>
         reader.onload = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
     });
-
-const normFile = (e) => {
-    if (Array.isArray(e)) {
-        return e;
-    }
-
-    return e && e.fileList;
-};
 
 const { Option } = Select;
 const UpdateUser = ({ user, onUserAdded }) => {
@@ -31,10 +23,10 @@ const UpdateUser = ({ user, onUserAdded }) => {
     const [fileList, setFileList] = useState([
         {
             uid: '-1',
-            name: 'image.png',
+            name: 'Image',
             status: 'done',
-            url: 'src/assets/DefaultImageProfil.png',
-            im
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
+
         }
     ]);
     const newFileList = fileList;
@@ -288,7 +280,8 @@ const UpdateUser = ({ user, onUserAdded }) => {
 
                                 },
                             ]}>
-                            <Input placeholder='statut' style={{ width: '230px', marginRight: '10px' }} />
+                            <Input placeholder='statut' style={{ width: '230px', marginRight: '10px' }}
+                                prefix={<MonitorOutlined />} />
                         </Form.Item>
                         <Form.Item
                             name={"image_url"}
