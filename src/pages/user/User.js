@@ -71,7 +71,7 @@ const User = () => {
         getUsers()
     };
     return (
-        <div>
+        <div style={{marginTop:'-10px'}}>
 
             <div style={{ marginLeft: '20px', width: '80vw', marginTop: '20px' }}>
                 <AddUser onUserAdded={onUserAdded} />

@@ -18,6 +18,7 @@ function getItem(label, key, icon, children, type) {
     };
 }
 const items = [
+
     getItem(<NavLink to='/'>Home</NavLink>, '1', <HomeOutlined />),
     getItem(<NavLink to='/user'>Users</NavLink>, '2', <TeamOutlined />),
     getItem(<SignOut />, '3', <LogoutOutlined style={{ color: 'red' }} />)
@@ -26,18 +27,22 @@ const items = [
 const Sidebar = () => {
     return (
         <div style={{
-            marginTop: "-19px"
+            marginTop: "-19px",
+            position:'fixed',
+            zIndex:2
         }}>
             <Header
                 style={{
                     marginLeft: '-14px',
+                   
+                    color:'white'
                 }}
-            >
+            ><h1 style={{ marginTop: '3px'}}>Udoor</h1>
                 
             </Header>
             < Menu
                 style={{
-                    width: 256,
+                    width: 220,
                     minHeight: '92vh',
                     marginLeft: '-14px',
                 }

@@ -12,7 +12,7 @@ import Error from '../../pages/error/Error.js'
 
 const Content = () => {
     return (
-        <div>
+        <div style={{zIndex:0, marginLeft:230, marginTop:60}}>
             <Routes>
                 <Route path='*' element={<Error />} />
                 <Route path='/user' element={<User />} />
