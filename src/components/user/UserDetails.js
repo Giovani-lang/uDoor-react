@@ -28,7 +28,7 @@ const UserDetails = ({ user }) => {
             <Button type="primary" onClick={showModal} icon={<EyeOutlined />}>
                 View
             </Button>
-            <Modal open={isModalOpen} onCancel={handleCancel} footer={null} style={{ top: '50px', maxWidth: '350px' }}>
+            <Modal open={isModalOpen} onCancel={handleCancel} footer={null} style={{ top: '70px', maxWidth: '350px' }}>
                 <div style={{
                     display: 'grid',
                     gridGap: '10px'

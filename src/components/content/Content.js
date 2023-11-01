@@ -12,15 +12,13 @@ import Error from '../../pages/error/Error.js'
 
 const Content = () => {
     return (
-        <div style={{zIndex:0, marginLeft:230, marginTop:60}}>
+        <div style={{ zIndex: 0, marginLeft: 230, marginTop: 60 }}>
             <Routes>
                 <Route path='*' element={<Error />} />
                 <Route path='/user' element={<User />} />
                 <Route path='/' element={<Home />} />
                 <Route path='/Signin' element={<Signing />} />
                 <Route path='/Signup' element={<Signup />} />
-
-
             </Routes>
         </div>
     );
