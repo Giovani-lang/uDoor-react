@@ -7,15 +7,13 @@ import Navibar from './components/navibar/Navibar';
 const App = () => {
   return (
     <BrowserRouter>
-    <div>
-    <Navibar />
+    
+          <Navibar />
         <div style={{display: 'flex', flexDirection:'row'}}>
         <Sidebar />
-        
+
         <Content />
         </div>
-    </div>
-       
           
     
     </BrowserRouter>

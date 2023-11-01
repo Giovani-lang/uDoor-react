@@ -20,15 +20,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState([
-        {
-            uid: '-1',
-            name: 'Image',
-            status: 'done',
-            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
-
-        }
-    ]);
+    const [fileList, setFileList] = useState([]);
     const newFileList = fileList;
     const handleClose = () => setPreviewOpen(false);
     const handlePreview = async (file) => {
@@ -77,7 +69,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
 
     const onUpdate = async (values) => {
 
-        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values)
+        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values, { 'Content-Type': 'image/jpeg', })
             .then((resp) => {
                 console.log(resp);
                 setValue(resp.value)
@@ -291,10 +283,13 @@ const UpdateUser = ({ user, onUserAdded }) => {
                                 marginTop: -18,
                                 padding: 16,
                             }}>
+                                {/* `https://test-back.authentify.upowa.org/api/user/update/${user.email}` */}
                                 <Upload
-                                    action={'https://test-back.authentify.upowa.org/api/user/add'}
+                                    action={"https://test-back.authentify.upowa.org/api/user/add"}
                                     listType="picture-card"
                                     method='POST'
+                                    headers={{ "Content-type": "image/jpeg" }}
+                                    accept='.png,.jpeg,.jpg'
                                     fileList={fileList}
                                     defaultFileList={fileList}
                                     //appercu de l'image avec l'icone eye
