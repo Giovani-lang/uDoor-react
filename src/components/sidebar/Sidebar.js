@@ -21,7 +21,7 @@ const items = [
 
     getItem(<NavLink to='/'>Home</NavLink>, '1', <HomeOutlined />),
     getItem(<NavLink to='/user'>Users</NavLink>, '2', <TeamOutlined />),
-    getItem(<SignOut />, '3', <LogoutOutlined style={{ color: 'red' }} />)
+    // getItem(<SignOut />, '3', <LogoutOutlined style={{ color: 'red' }} />)
 
 ];
 const Sidebar = () => {
@@ -29,7 +29,7 @@ const Sidebar = () => {
         <div style={{
             marginTop: "-19px",
             position:'fixed',
-            zIndex:2
+            zIndex:0
         }}>
             <Header
                 style={{

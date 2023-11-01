@@ -76,7 +76,7 @@ const Signing = () => {
 
     return (
 
-        <div className="bgform">
+        <div className="bgform" style={{}}>
             <div className='container' >
 
                 <div className='container-form'>

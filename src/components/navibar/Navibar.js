@@ -70,7 +70,7 @@ const Navibar = () => {
     };
     return (
 
-        <Menu style={{position:'fixed',zIndex:1, backgroundColor: '#001529', width:'1600px', marginLeft:'-8px', marginTop:'-10px' }} onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} ></Menu>);
+        <Menu style={{position:'fixed',zIndex:0, backgroundColor: '#001529', width:'1600px', marginLeft:'-8px', marginTop:'-10px' }} onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} ></Menu>);
 };
 
 export default Navibar;

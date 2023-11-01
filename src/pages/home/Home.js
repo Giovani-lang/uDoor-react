@@ -92,7 +92,7 @@ const Home = () => {
     },
   };
   return (
-    <div style={{ backgroundColor: '#e5e9ed', margin: '0px', width: '1250px' }} >
+    <div style={{ backgroundColor: '#e5e9ed', margin: '0px', width: '1250px', marginTop: '-12px' }} >
       {/* // statistiques */}
       <div className='stats'>
         <Row gutter={10}  >
@@ -139,13 +139,13 @@ const Home = () => {
           </Col>
         </Row>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginTop:'-5px' }}>
         {/* Graphe */}
         <div >
-          <Area style={{ margin: '70px', marginLeft: '0px', height: '300px', width: '600px', marginTop: '30px' }} {...config} passive={true} />;
+          <Area style={{ margin: '70px', marginLeft: '0px', height: '300px', width: '600px', marginTop: '26px' }} {...config} passive={true} />;
         </div>
         {/* calendrier */}
-        <div style={{ width: '500px', marginLeft: '9px', marginTop: '30px' }}>
+        <div style={{ width: '500px', marginLeft: '9px', marginTop: '20px' }}>
           <Calendar fullscreen={false} onPanelChange={onPanelChange} />
         </div>
       </div>
