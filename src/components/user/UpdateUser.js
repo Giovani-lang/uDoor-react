@@ -1,50 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Form, Input, Modal, Upload, Select, Space, message } from 'antd';
-import { MailOutlined, PlusOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined, MonitorOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Modal, Select, Space, message } from 'antd';
+import { MailOutlined, PlusOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined } from '@ant-design/icons';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { imageDB } from './firebase-config'
+import { v4 } from 'uuid'
 
-
-const getBase64 = (file) =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-    });
 
 const { Option } = Select;
 const UpdateUser = ({ user, onUserAdded }) => {
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState([]);
-    const newFileList = fileList;
-    const handleClose = () => setPreviewOpen(false);
-    const handlePreview = async (file) => {
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj);
-        }
-        setPreviewImage(file.url || file.preview);
-        setPreviewOpen(true);
-        setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
-        setFileList(newFileList)
-    };
-    const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
-    const uploadButton = (
-        <div  >
-            <PlusOutlined />
-            <div
-                style={{
-                    marginTop: 8,
-                }}
-            >
-                Upload
-            </div>
-        </div>
-    );
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -66,14 +33,35 @@ const UpdateUser = ({ user, onUserAdded }) => {
         image_url: ""
     });
 
+    const [img, setImage] = useState("")
 
     const onUpdate = async (values) => {
 
-        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values, { 'Content-Type': 'image/jpeg', })
+        const imageRef = ref(imageDB, `udoor/images/${v4()}`);
+
+        // uploadBytes(imageRef, img).then((snapshot) => {
+        //     getDownloadURL(snapshot.ref).then((url) => {
+        //         user.image_url = url
+        //     })
+        // })
+
+        const uploadImage = async (imageRef, img) => {
+            const snapshot = await uploadBytes(imageRef, img);
+            const url = await getDownloadURL(snapshot.ref);
+            return url;
+        };
+
+        const url = await uploadImage(imageRef, img);
+
+        values.image_url = url;
+
+        console.log(values)
+
+
+        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values)
             .then((resp) => {
-                console.log(resp);
-                setValue(resp.value)
-                console.log(values)
+                setValue(resp)
+                console.log(resp)
                 if (resp.status === 201) {
                     message.success('User update succesfull')
                     handleCancel()
@@ -93,14 +81,6 @@ const UpdateUser = ({ user, onUserAdded }) => {
                 setIsModalOpen(true);
             }
         })
-        // Récupérer l'image du upload
-        const file = fileList[0].originFileObj;
-
-        // Convertir l'image en base64
-        const base64 = await getBase64(file);
-
-        // Mettre l'image en base64 dans la data en db
-        values['image_url'] = base64;
 
     };
 
@@ -261,56 +241,28 @@ const UpdateUser = ({ user, onUserAdded }) => {
                     </div>
                     <div
                         style={{ display: 'flex' }}>
-                        <Form.Item
-                            name={"statut"}
-                            initialValue={user.statut}
-                            rules={[
-
-                                {
-                                    type: "text",
-                                    warningOnly: true,
-
-                                },
-                            ]}>
-                            <Input placeholder='statut' style={{ width: '230px', marginRight: '10px' }}
-                                prefix={<MonitorOutlined />} />
-                        </Form.Item>
-                        <Form.Item
-                            name={"image_url"}
-                            initialValue={user.image_url}>
-                            <div style={{
-                                marginLeft: 50,
-                                marginTop: -18,
-                                padding: 16,
-                            }}>
-                                {/* `https://test-back.authentify.upowa.org/api/user/update/${user.email}` */}
-                                <Upload
-                                    action={"https://test-back.authentify.upowa.org/api/user/add"}
-                                    listType="picture-card"
-                                    method='POST'
-                                    headers={{ "Content-type": "image/jpeg" }}
-                                    accept='.png,.jpeg,.jpg'
-                                    fileList={fileList}
-                                    defaultFileList={fileList}
-                                    //appercu de l'image avec l'icone eye
-                                    onPreview={handlePreview}
-                                    onChange={handleChange}
-
+                        <Form.Item >
+                            <Space.Compact>
+                                <Form.Item
+                                    name={'statut'}
+                                    noStyle
+                                    initialValue={user.statut}
+                                    rules={[{ required: true, message: 'Status is required' }]}
                                 >
-                                    {fileList.length >= 1 ? null : uploadButton}
-                                </Upload>
-                            </div>
+                                    <Select placeholder="statut" style={{ width: '230px', marginRight: '10px' }}>
+                                        <Option value="Actif">Actif</Option>
+                                        <Option value="Inactif">Inactif</Option>
+                                    </Select>
+                                </Form.Item>
+                            </Space.Compact>
+                        </Form.Item>
+                        <Form.Item>
+
+                            <Input type='file' accept='.png,.jpeg,.jpg' initialValue={user.image_url}
+                                onChange={(e) => setImage(e.target.files[0])}
+                            />
                         </Form.Item>
                     </div>
-                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleClose}>
-                        <img
-                            alt="example"
-                            style={{
-                                width: '100%',
-                            }}
-                            src={previewImage}
-                        />
-                    </Modal>
 
                 </Form>
             </Modal>
