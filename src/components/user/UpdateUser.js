@@ -22,7 +22,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
     };
 
 
-    const [values, setValue] = useState({
+    const [value, setValue] = useState({
         firstname: "",
         lastname: "",
         email: "",
@@ -33,34 +33,36 @@ const UpdateUser = ({ user, onUserAdded }) => {
         image_url: ""
     });
 
-    const [img, setImage] = useState("")
+    const [image, setImage] = useState("")
+
+    const handleImageSelected = (event) => {
+        const img = event.target.files[0];
+        setImage(img)
+    }
+
+    const handleImageUpload = async () => {
+        if (image) {
+            const storageRef = ref(imageDB, `udoor/images/${v4()}`);
+            try {
+                const snapshot = await uploadBytes(storageRef, image);
+
+                const downloadURL = await getDownloadURL(snapshot.ref);
+                return downloadURL
+            } catch (error) {
+                console.error('Erreur lors du téléchargement de l\'image :', error);
+                throw error;
+            }
+        }
+    }
 
     const onUpdate = async (values) => {
-
-        const imageRef = ref(imageDB, `udoor/images/${v4()}`);
-
-        // uploadBytes(imageRef, img).then((snapshot) => {
-        //     getDownloadURL(snapshot.ref).then((url) => {
-        //         user.image_url = url
-        //     })
-        // })
-
-        const uploadImage = async (imageRef, img) => {
-            const snapshot = await uploadBytes(imageRef, img);
-            const url = await getDownloadURL(snapshot.ref);
-            return url;
-        };
-
-        const url = await uploadImage(imageRef, img);
-
-        values.image_url = url;
-
+        const imageUrl = await handleImageUpload();
+        values.image_url = imageUrl
+        console.log(values.image_url)
         console.log(values)
-
-
-        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values)
+        axios.put(`https://test-back.authentify.upowa.org/api/user/update/${user.email}`, { values })
             .then((resp) => {
-                setValue(resp)
+                setValue(resp.data)
                 console.log(resp)
                 if (resp.status === 201) {
                     message.success('User update succesfull')
@@ -257,9 +259,8 @@ const UpdateUser = ({ user, onUserAdded }) => {
                             </Space.Compact>
                         </Form.Item>
                         <Form.Item>
-
-                            <Input type='file' accept='.png,.jpeg,.jpg' initialValue={user.image_url}
-                                onChange={(e) => setImage(e.target.files[0])}
+                            <Input type='file' accept='.png,.jpeg,.jpg'
+                                onChange={handleImageSelected}
                             />
                         </Form.Item>
                     </div>
