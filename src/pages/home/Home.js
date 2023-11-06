@@ -21,6 +21,8 @@ const Home = () => {
   const [utilisateurs, setUtilisateurs] = useState([Number]);
   var [userActif, setUserActif] = useState(0);
   const history = useNavigate();
+  const [nbUserAc, setNbuserAc] = useState([Number]);
+  const [userInactif, setUserInactif] = useState([Number]);
 
   useEffect(() => {
     let email = sessionStorage.getItem('email');
@@ -35,14 +37,21 @@ const Home = () => {
       // .then((response) => response.json())
       .then((response) => {
         console.log(response.data)
-        const utilisateurs = response.data.totalElements;
-        // console.log()
+        //Nombre d'utilisateurs 
         setUtilisateurs(response.data.totalElements)
         console.log(utilisateurs)
-        // response.data.content.forEach(email=>utilisateurs++) 
-        response.data.content.forEach(pofil => userActif++)
-        setUserActif(userActif)
-        console.log(userActif)
+        //Nombre d'utilisateurs Actifs
+        userActif = response.data.content.filter(utilisateur => utilisateur.statut === "Actif");
+        setNbuserAc(userActif.length)
+        console.log(nbUserAc)
+        //Nombre d'utilisateurs Inactifs
+        // const UserInactif = utilisateurs-nbUserAc;
+        const userInactif = response.data.content.filter(utilisateur => utilisateur.statut === "Inactif");
+        setUserInactif(userInactif.length)
+        console.log(userInactif)
+        
+        
+        
       });
   }, []);
 
@@ -114,7 +123,7 @@ const Home = () => {
             <Card bordered={false} style={{ width: '300px', height: '200px', backgroundColor: '#6cb0e7' }}>
               <Statistic
                 title="Number of active users"
-                value={5}
+                value={nbUserAc}
                 valueStyle={{
                   color: '#3f8600',
                 }}
@@ -127,13 +136,12 @@ const Home = () => {
             <Card bordered={false} style={{ width: '300px', height: '200px', backgroundColor: '#6cb0e7' }}>
               <Statistic
                 title="Number of inactive users"
-                value={9.3}
-                precision={2}
+                value={userInactif}
                 valueStyle={{
                   color: '#cf1322',
                 }}
                 prefix={<ArrowDownOutlined />}
-                suffix="%"
+               
               />
             </Card>
           </Col>
