@@ -22,7 +22,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
     };
 
 
-    const [value, setValue] = useState({
+    const [values, setValue] = useState({
         firstname: "",
         lastname: "",
         email: "",
@@ -60,10 +60,9 @@ const UpdateUser = ({ user, onUserAdded }) => {
         values.image_url = imageUrl
         console.log(values.image_url)
         console.log(values)
-        axios.put(`https://test-back.authentify.upowa.org/api/user/update/${user.email}`, { values })
+        axios.put(`https://test-back.authentify.upowa.org/api/user/update/${user.email}`,  values)
             .then((resp) => {
-                setValue(resp.data)
-                console.log(resp)
+                console.log(values)
                 if (resp.status === 201) {
                     message.success('User update succesfull')
                     handleCancel()
