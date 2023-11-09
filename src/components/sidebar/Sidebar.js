@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-    HomeOutlined,
-    TeamOutlined,
-    LogoutOutlined
-} from '@ant-design/icons';
+import {HomeOutlined,TeamOutlined} from '@ant-design/icons';
 import { Menu } from 'antd';
-import SignOut from '../home/SignOut';
 import { NavLink } from 'react-router-dom';
 import { Header } from 'antd/es/layout/layout';
 function getItem(label, key, icon, children, type) {
@@ -28,17 +23,16 @@ const Sidebar = () => {
     return (
         <div style={{
             marginTop: "-19px",
-            position:'fixed',
-            zIndex:0
+            position: 'fixed',
+            zIndex: 0
         }}>
             <Header
                 style={{
                     marginLeft: '-14px',
-                   
-                    color:'white'
+                    color: 'white'
                 }}
-            ><h1 style={{ marginTop: '3px'}}>Udoor</h1>
-                
+            ><h1 style={{ marginTop: '3px' }}>Udoor</h1>
+
             </Header>
             < Menu
                 style={{

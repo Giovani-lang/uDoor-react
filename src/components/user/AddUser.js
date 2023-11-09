@@ -176,7 +176,7 @@ const AddUser = ({ onUserAdded }) => {
     return (
         <div>
             <Button
-                style={{ margin: 8 }}
+                style={{ margin: 8, color:'white', fontSize: 'bold', backgroundColor: '#001529',  }}
                 onClick={() => {
                     setOpen(true);
                 }}
