@@ -5,6 +5,7 @@ import User from '../../pages/user/User';
 import Signing from '../../pages/signin/Signing';
 import Signup from '../../pages/signup/Signup';
 import Error from '../../pages/error/Error.js';
+import Profil from '../../pages/profil/Profil.js';
 
 
 
@@ -22,6 +23,7 @@ const Content = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/Signin' element={<Signing />} />
                 <Route path='/Signup' element={<Signup />} />
+                <Route path='/Profil' element={<Profil />} />
             </Routes>
         </div>
     );

@@ -22,7 +22,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
     };
 
 
-    const [values, setValue] = useState({
+    const [value, setValue] = useState({
         firstname: "",
         lastname: "",
         email: "",
@@ -62,7 +62,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
         console.log(values)
         axios.put(`https://test-back.authentify.upowa.org/api/user/update/${user.email}`, values)
             .then((resp) => {
-                console.log(values)
+                setValue(resp)
                 if (resp.status === 201) {
                     message.success('User update succesfull')
                     handleCancel()
@@ -248,7 +248,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
                                     name={'statut'}
                                     noStyle
                                     initialValue={user.statut}
-                                    rules={[{ required: true, message: 'Status is required' }]}
+                                    rules={[{ required: false, message: 'Status is required' }]}
                                 >
                                     <Select placeholder="statut" style={{ width: '230px', marginRight: '10px' }}>
                                         <Option value="Actif">Actif</Option>
