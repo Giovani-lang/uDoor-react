@@ -34,7 +34,7 @@ const items = [
 
     {
 
-        style: { marginLeft: '350px', color: 'white', marginTop: '8px' },
+        style: { marginLeft: '250px', color: 'white', marginTop: '8px' },
         label: 'Settings',
         key: 'SubMenu',
         icon: <Avatar size="20" icon={<UserOutlined style={{ marginLeft: '15px' }} />} />,
@@ -70,7 +70,7 @@ const Navibar = () => {
     };
     return (
 
-        <Menu style={{position:'fixed',zIndex:0, backgroundColor: '#001529', width:'1600px', marginLeft:'-8px', marginTop:'-10px' }} onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} ></Menu>);
+        <Menu style={{ position: 'fixed', zIndex: 0, backgroundColor: '#001529', width: '1600px', marginLeft: '-8px', marginTop: '-10px' }} onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} ></Menu>);
 };
 
 export default Navibar;

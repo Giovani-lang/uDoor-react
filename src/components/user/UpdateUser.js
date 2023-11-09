@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Input, Modal, Select, Space, message } from 'antd';
-import { MailOutlined, PlusOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined } from '@ant-design/icons';
+import { MailOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined } from '@ant-design/icons';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { imageDB } from './firebase-config'
 import { v4 } from 'uuid'
@@ -59,10 +59,10 @@ const UpdateUser = ({ user, onUserAdded }) => {
         const imageUrl = await handleImageUpload();
         values.image_url = imageUrl
         console.log(values.image_url)
-        console.log(values)
-        axios.put(`https://test-back.authentify.upowa.org/api/user/update/${user.email}`, { values })
+        axios.put(`https://test-back.authentify.upowa.org/api/user/update/${user.email}`, values)
             .then((resp) => {
-                setValue(resp.data)
+                // setValue(resp.data)
+                console.log('values avec s :', values)
                 console.log(resp)
                 if (resp.status === 201) {
                     message.success('User update succesfull')

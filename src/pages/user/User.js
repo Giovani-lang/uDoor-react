@@ -71,7 +71,7 @@ const User = () => {
         getUsers()
     };
     return (
-        <div style={{marginTop:'-10px'}}>
+        <div style={{ marginTop: '-10px' }}>
 
             <div style={{ marginLeft: '20px', width: '80vw', marginTop: '20px' }}>
                 <AddUser onUserAdded={onUserAdded} />
@@ -80,7 +80,7 @@ const User = () => {
                     columns={columns}
                     dataSource={data}
                     pagination={{
-                        pageSize: 7,
+                        pageSize: 6,
                         total: data.totaPages
                     }}
                 />
