@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { SettingOutlined, LogoutOutlined, UserOutlined, SearchOutlined } from '@ant-design/icons';
 import { Menu, Avatar } from 'antd';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Navibar = () => {
+
+    const history = useNavigate();
     const items = [
 
         {
 
-            style: { marginLeft: '1360px', color: 'white', marginTop: '8px' },
+            style: { marginLeft: '77rem', color: 'white', marginTop: '8px' },
             label: 'Settings',
             key: 'SubMenu',
             icon: <SettingOutlined />,
@@ -15,16 +18,20 @@ const Navibar = () => {
 
 
                 {
-                    label: 'My Profile',
+                    label: (
+                        <NavLink to="/profil">
+                            My Profile
+                        </NavLink>
+                    ),
                     key: 'setting:1',
                     icon: <UserOutlined />,
                 },
 
                 {
                     label: (
-                        <a href="/signin" style={{ color: 'red' }}>
+                        <NavLink to="/signin" style={{ color: 'red' }}>
                             Logout
-                        </a>
+                        </NavLink>
                     ),
                     key: 'alipay',
                     icon: <LogoutOutlined style={{ color: 'red' }}></LogoutOutlined>,
