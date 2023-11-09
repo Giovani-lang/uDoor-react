@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css'
-import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, ArrowUpOutlined ,TeamOutlined} from '@ant-design/icons';
 import { Card, Col, Row, Statistic, Calendar, Radio, Select, Typography, theme } from 'antd';
 import { Area, Pie } from '@ant-design/plots';
 import dayjs from 'dayjs';
@@ -34,8 +34,7 @@ const Home = () => {
   useEffect(() => {
     // Récupération des données du serveur
     axios.get("https://test-back.authentify.upowa.org/api/user/all?page=2&size=10000")
-      // .then((response) => response.json())
-      .then((response) => {
+        .then((response) => {
         console.log(response.data)
         //Nombre d'utilisateurs 
         setUtilisateurs(response.data.totalElements)
@@ -63,7 +62,7 @@ const Home = () => {
   const data = [
    
     {
-      type: 'active users',
+      type: 'Active users',
       value: nbUserAc
     },
     {
@@ -99,21 +98,21 @@ const Home = () => {
   
   
   return (
-    <div style={{ backgroundColor: '#e5e9ed', margin: '0px', width: '1250px', marginTop: '-12px' }} >
+    <div style={{ backgroundColor: '#e5e9ed',fontWeight:'bold',  margin: '0px', width: '1250px', marginTop: '-12px' }} >
       {/* // statistiques */}
       <div className='stats'>
         <Row gutter={10}  >
           <Col style={{ margin: '50px', marginTop: '50px' }} span={1000} >
             <Card bordered={false} style={{ width: '300px', height: '200px', backgroundColor: '#6cb0e7' }}>
               <Statistic
-                title="Number of users"
+                title="Number of users" 
                 value={utilisateurs}
-
+                
                 valueStyle={{
                   color: '#3f8600',
                 }}
-                prefix={<ArrowUpOutlined />}
-                suffix=""
+                prefix=''
+                suffix={<TeamOutlined style={{marginLeft:150, marginTop:50}}/>}
               />
             </Card>
           </Col>
@@ -126,7 +125,7 @@ const Home = () => {
                   color: '#3f8600',
                 }}
                 prefix={<ArrowUpOutlined />}
-                suffix=""
+                suffix={<TeamOutlined style={{marginLeft:150, marginTop:50}}/>}
               />
             </Card>
           </Col>
@@ -139,7 +138,7 @@ const Home = () => {
                   color: '#cf1322',
                 }}
                 prefix={<ArrowDownOutlined />}
-               
+                suffix={<TeamOutlined style={{marginLeft:150, marginTop:50, color:'red'}} />}
               />
             </Card>
           </Col>
