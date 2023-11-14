@@ -50,7 +50,6 @@ const UserDetails = ({ user }) => {
                                     style={{
                                         width: '150px',
                                         height: '150px',
-                                        borderRadius: '50px'
                                     }}
                                 />
                             </div>

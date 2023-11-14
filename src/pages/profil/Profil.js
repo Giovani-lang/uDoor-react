@@ -1,28 +1,25 @@
-import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Form, Input, Modal, Select, Space, message } from 'antd';
-import { MailOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card } from 'antd';
+import './Profil.css';
+import { Tabs } from 'antd';
+import { message, Form, Input, Button, Select, Space } from 'antd';
+import { MailOutlined, LockOutlined, UserOutlined, PhoneOutlined, MonitorOutlined } from '@ant-design/icons';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { imageDB } from './firebase-config'
+import { imageDB } from '../../components/user/firebase-config'
 import { v4 } from 'uuid'
 
 
+
 const { Option } = Select;
-const UpdateUser = ({ user, onUserAdded }) => {
-    const [form] = Form.useForm();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
+const Profil = () => {
 
 
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
+    const history = useNavigate();
 
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
-
-    const [value, setValue] = useState({
+    const [user, setUser] = useState({
         firstname: "",
         lastname: "",
         email: "",
@@ -32,6 +29,14 @@ const UpdateUser = ({ user, onUserAdded }) => {
         statut: "",
         image_url: ""
     });
+
+    let email;
+    useEffect(() => {
+        email = sessionStorage.getItem('email');
+        if (email === '' || email === null) {
+            history('/Signin')
+        }
+    }, []);
 
     const [image, setImage] = useState("")
 
@@ -58,67 +63,65 @@ const UpdateUser = ({ user, onUserAdded }) => {
     const onUpdate = async (values) => {
         const imageUrl = await handleImageUpload();
         values.image_url = imageUrl
-        console.log(values.image_url)
         console.log(values)
-        axios.put(`https://test-back.authentify.upowa.org/api/user/update/${user.email}`, values)
-            .then((resp) => {
-                setValue(resp)
+        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + email, values)
+            .then(resp => {
+                setUser(resp)
                 if (resp.status === 201) {
-                    message.success('User update succesfull')
-                    handleCancel()
-                    onUserAdded()
+                    message.success('Successfully')
+                    history('/Signin');
                 }
-            }).catch(err => {
+            })
+            .catch(err => {
                 console.log(err)
             })
         axios.interceptors.response.use(response => {
             return response;
         }, err => {
             if (err.response.status === 409) {
+                console.log('This user already exist !')
                 message.warning('This user already exist, try again !')
-                setIsModalOpen(true);
             } else if (err.response.status === 500) {
                 message.warning('A problem occurred while saving information !')
-                setIsModalOpen(true);
             }
         })
-
     };
 
+
+
     return (
-        <>
-            <Button type="primary" onClick={showModal} icon={<EditOutlined />}>
-                Update
-            </Button>
-            <Modal
-                open={isModalOpen}
-                title="Update an account"
-                okText="Update"
-                cancelText="Cancel"
-                onCancel={handleCancel}
-                onClose={handleCancel}
-                onOk={() => {
-                    form
-                        .validateFields()
-                        .then((values) => {
-                            form.resetFields();
-                            onUpdate(values);
-                            setIsModalOpen(true);
-                        })
-                        .catch((info) => {
-                            console.log('Update Failed:', info);
-                        });
+        <div className='profil'>
+
+            <Card
+                style={{
+
+                    backgroundImage: 'linear-gradient(#0078d4,white,white)',
+                    display: 'flex',
+                    width: 300,
+                    height: 350,
+                    justifyContent: 'center',
                 }}
             >
-                <Form
-                    form={form}
-                    layout="vertical"
-                    name="form_in_modal"
-                    onFinish={(values) => {
-                        console.log(values);
+                <div
+                    className='.convert-image '
+                >
+                    <div style={{ textAlign: 'center' }}>
+                        <h2 >{user.firstname} {user.lastname}</h2>
+                    </div>
+                    <div className='image'>
+                        <img
+                            className='img'
+                            src={user.image_url || 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg'}
+                        />
+                    </div>
+                </div>
+            </Card>
+
+            <div className='content'>
+                <Card
+                    style={{
+                        width: 600,
                     }}
-
-
                 >
                     <div style={{ display: 'flex' }}>
                         <Form.Item
@@ -264,10 +267,13 @@ const UpdateUser = ({ user, onUserAdded }) => {
                         </Form.Item>
                     </div>
 
-                </Form>
-            </Modal>
-        </>
+                    <Form.Item>
+                        <Button htmlType='submit' type="primary" style={{ width: '150px' }} onClick={onUpdate}>Update</Button>
+                    </Form.Item>
+                </Card>
+            </div>
+        </div>
     );
 };
 
-export default UpdateUser;
+export default Profil;

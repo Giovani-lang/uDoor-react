@@ -17,21 +17,23 @@ const Signup = () => {
 
     const history = useNavigate();
 
-    const [data, setData] = useState({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        profil: "",
-        phone: ""
-    });
-
-    const handleInput = (event) => {
-        setData({ ...data, [event.target.name]: event.target.value })
-    };
+    const [firstname, setFirstname] = useState("")
+    const [lastname, setLastname] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [phone, setPhone] = useState("")
+    const [profil, setProfil] = useState("")
 
     function handleSubmit(event) {
         event.preventDefault()
+        const data = {
+            firstname,
+            lastname,
+            email,
+            password,
+            phone,
+            profil
+        }
         axios.post(url, data)
             .then(resp => {
                 if (resp.status === 201) {
@@ -83,7 +85,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input onChange={handleInput} placeholder='firstname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
+                                    <Input onChange={(e) => setFirstname(e.target.value)} placeholder='firstname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
                                 </Form.Item>
                                 <Form.Item
                                     name={"lastname"}
@@ -101,7 +103,7 @@ const Signup = () => {
                                         },
                                     ]}
                                 >
-                                    <Input onChange={handleInput} placeholder='lastname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
+                                    <Input onChange={(e) => setLastname(e.target.value)} placeholder='lastname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
@@ -121,7 +123,7 @@ const Signup = () => {
                                         },
                                     ]}
                                 >
-                                    <Input onChange={handleInput} placeholder='email' style={{ width: '250px', marginRight: '10px' }} prefix={<MailOutlined />} />
+                                    <Input onChange={(e) => setEmail(e.target.value)} placeholder='email' style={{ width: '250px', marginRight: '10px' }} prefix={<MailOutlined />} />
 
                                 </Form.Item>
                                 <Form.Item
@@ -139,7 +141,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input.Password onChange={handleInput} placeholder='password' style={{ width: '250px', marginRight: '10px' }} prefix={<LockOutlined />} />
+                                    <Input.Password onChange={(e) => setPassword(e.target.value)} placeholder='password' style={{ width: '250px', marginRight: '10px' }} prefix={<LockOutlined />} />
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
@@ -158,7 +160,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input onChange={handleInput} placeholder='phone' style={{ width: '250px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
+                                    <Input onChange={(e) => setPhone(e.target.value)} placeholder='phone' style={{ width: '250px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
                                 </Form.Item>
                                 <Form.Item >
                                     <Space.Compact>
