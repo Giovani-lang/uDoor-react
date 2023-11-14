@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Table, Space } from 'antd';
+import { Table, Space, Input } from 'antd';
 import axios from 'axios';
 import AddUser from '../../components/user/AddUser';
 import UserDetails from '../../components/user/UserDetails';
 import UpdateUser from '../../components/user/UpdateUser';
+import {SearchOutlined} from '@ant-design/icons';
 
 const User = () => {
     const url = 'https://test-back.authentify.upowa.org/api/user/all?page=2&size=10000'
     const history = useNavigate();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [query, setQuery] = useState('')
+    const [filterData, setFilterdata]= useState([])
 
 
 
@@ -21,6 +24,7 @@ const User = () => {
             history('/Signin')
         };
         getUsers();
+        
     }, []);
 
     const columns = [
@@ -55,14 +59,14 @@ const User = () => {
         },
     ];
 
-    const getUsers = () => {
+    const getUsers = (value) => {
         setLoading(true)
         axios.get(url)
             .then((resp) => {
                 // console.log(resp.data)
                 setData(resp.data.content)
+                setFilterdata(resp.data.content)
                 setLoading(false)
-
             }
             )
             .catch(err => console.log(err))
@@ -70,17 +74,58 @@ const User = () => {
     const onUserAdded = () => {
         getUsers()
     };
+
+    useEffect(()=>{
+        setFilterdata(data)
+    },[data])
+    const handleChange = (e) => {
+        const getSearch = e.target.value.toLowerCase()
+        setQuery(getSearch)
+        if(getSearch.length > 0){
+            const searchdata = data.filter((record)=>{
+                return(                   
+                    record.firstname.toLowerCase().includes(getSearch)||
+                    record.lastname.toLowerCase().includes(getSearch)||
+                    record.email.toLowerCase().includes(getSearch)||                    
+                    record.profil.toLowerCase().includes(getSearch.toLowerCase())
+                )   
+                     
+            })
+            setFilterdata(searchdata)     
+           
+        }else{
+            setFilterdata(data)
+            
+        }
+        
+    }
     return (
         <div style={{marginTop:'-10px'}}>
 
             <div style={{ marginLeft: '20px', width: '80vw', marginTop: '20px' }}>
                 <AddUser onUserAdded={onUserAdded} />
+                <div style={{backgroundColor:'grey', display:'flex', flexDirection:'row', borderRadius:'40px', }}>
+                <SearchOutlined />
+                <Input
+                type='text' 
+                placeholder='Type text search...'
+                style={{borderRadius:'0px'}}
+                allowClear
+                value={query}
+                onChange={handleChange}
+                />
+
+           
+                </div>
                 <Table
                     loading={loading}
                     columns={columns}
-                    dataSource={data}
+                    dataSource={filterData}
+                    filterValue= {query}
+                    
+                    
                     pagination={{
-                        pageSize: 7,
+                        pageSize: 6,
                         total: data.totaPages
                     }}
                 />
