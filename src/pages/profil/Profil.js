@@ -72,17 +72,15 @@ const Profil = () => {
     }
 
     const onUpdate = async (values) => {
-        await form.validateFields();
         const imageUrl = await handleImageUpload();
         values.image_url = imageUrl
         const { firstname, lastname, email, password, profil, phone, statut, image_url } = values;
         console.log('form values', { firstname, lastname, email, password, profil, phone, statut, image_url })
         axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values)
-            .then(resp => {
+            .then((resp) => {
                 setUser(resp.data)
                 if (resp.status === 201) {
                     message.success('Successfully')
-                    history('/Signin');
                 }
             })
             .catch(err => {
@@ -155,11 +153,9 @@ const Profil = () => {
             children: (
                 <div>
                     <Form
-                        form={form}
-                        onFinish={(values) => {
-                            onUpdate(values)
-                            console.log(values);
-                        }}
+                        onFinish={(values) => (
+                            console.log(values)
+                        )}
                     >
                         <div style={{ display: 'flex' }}>
                             <Form.Item
