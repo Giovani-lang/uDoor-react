@@ -99,7 +99,7 @@ const Profil = () => {
     const items = [
         {
             key: '1',
-            label: 'Infos',
+            label: 'Profil',
             children: (
                 <div>
                     <div style={{ display: 'grid', gridTemplateColumns: '15% 85%', gridGap: '15px' }}>
