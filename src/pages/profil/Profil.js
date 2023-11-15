@@ -71,18 +71,11 @@ const Profil = () => {
         }
     }
 
-    const onUpdate =  (e) => {
-       e.preventDefault();
-       const value = {
-        firstname:'',
-        lastname:'',
-        email:'',
-        password:'',
-        phone:'',
-        profil:''
-    }
+    const onUpdate = async (values) => {
+        const imageUrl = await handleImageUpload();
+        values.image_url = imageUrl       
        console.log(user.email)
-        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, value)
+        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values)
             .then(resp => {
                 console.log(resp)
                 setUser(resp.data)
@@ -159,8 +152,7 @@ const Profil = () => {
             label: 'Update',
             children: (
                 <div>
-                    <Form
-                        
+                    <Form                        
                         onFinish={onUpdate}
                     >
                         <div style={{ display: 'flex' }}>
@@ -309,8 +301,7 @@ const Profil = () => {
                         <Button htmlType='submit' type="primary" onClick={onUpdate} icon={<EditOutlined />}>
                         Update
                     </Button>
-                    </Form>
-                   
+                    </Form>                   
                 </div>
             ),
         }
