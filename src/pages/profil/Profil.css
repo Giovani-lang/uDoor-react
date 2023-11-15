@@ -8,7 +8,15 @@
 .profil {
     display: grid;
     grid-template-columns: 35% 65%;
-    grid-gap: 15%;
+    background-color: rgba(0, 0, 0, 0.135);
+    grid-gap: 50px;
+    width: 77vw;
+    height: 80vh;
+    align-items: center;
+    border-radius: 15px;
+    padding-left: 30px;
+    position: absolute;
+    top: 25px;
 }
 
 .img {

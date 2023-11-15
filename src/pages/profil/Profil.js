@@ -306,15 +306,14 @@ const Profil = () => {
 
     return (
         <div className='profil'>
-
             <Card
                 style={{
-
                     backgroundImage: 'linear-gradient(#0078d4,white,white)',
                     display: 'flex',
-                    width: 300,
-                    height: 350,
+                    width: 400,
+                    height: 450,
                     justifyContent: 'center',
+                    borderRadius: '15px'
                 }}
             >
                 <div
@@ -336,6 +335,8 @@ const Profil = () => {
                 <Card
                     style={{
                         width: 600,
+                        height: 450,
+                        borderRadius: '15px'
                     }}
                 >
                     <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
