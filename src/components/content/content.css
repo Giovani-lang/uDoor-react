@@ -1,0 +1,6 @@
+.content-box{
+    z-index: 5;
+    position: fixed;
+    margin-left: 240;
+    margin-top: 57;
+}

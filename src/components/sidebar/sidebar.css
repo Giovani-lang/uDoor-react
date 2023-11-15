@@ -1,0 +1,9 @@
+/* marginTop: "-19px",
+position: 'fixed',
+zIndex: 0 */
+
+.sidebar{
+    margin-top: '-19px';
+    position: fixed;
+    z-index: 0;
+}

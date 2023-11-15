@@ -15,7 +15,18 @@ import Profil from '../../pages/profil/Profil.js';
 const Content = () => {
 
     return (
-        <div style={{ zIndex: 5, position: 'fixed', marginLeft: 240, marginTop: 57 }}>
+        <div style={{ 
+            zIndex: 5, 
+            position: 'fixed', 
+            marginLeft: 240, 
+            marginTop: 57 ,
+            flexDirection: 'column',
+            '@media (max-width: 768px)': {
+              flexDirection: 'row',
+            },
+    
+            
+        }}>
 
             <Routes>
                 <Route path='*' element={<Error />} />

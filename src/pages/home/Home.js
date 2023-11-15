@@ -18,11 +18,11 @@ const onPanelChange = (value, mode) => {
 
 
 const Home = () => {
-  const [utilisateurs, setUtilisateurs] = useState([Number]);
+  const [utilisateurs, setUtilisateurs] = useState(null);
   var [userActif, setUserActif] = useState(0);
   const history = useNavigate();
-  const [nbUserAc, setNbuserAc] = useState([Number]);
-  const [userInactif, setUserInactif] = useState([Number]);
+  const [nbUserAc, setNbuserAc] = useState(null);
+  const [userInactif, setUserInactif] = useState(null);
 
   useEffect(() => {
     let email = sessionStorage.getItem('email');

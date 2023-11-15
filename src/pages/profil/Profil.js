@@ -71,13 +71,20 @@ const Profil = () => {
         }
     }
 
-    const onUpdate = async (values) => {
-        const imageUrl = await handleImageUpload();
-        values.image_url = imageUrl
-        const { firstname, lastname, email, password, profil, phone, statut, image_url } = values;
-        console.log('form values', { firstname, lastname, email, password, profil, phone, statut, image_url })
-        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, values)
-            .then((resp) => {
+    const onUpdate = (e) => {
+        e.preventDefault();
+        const value = {
+            firstname: '',
+            lastname: '',
+            email: '',
+            password: '',
+            phone: '',
+            profil: ''
+        }
+        console.log(user.email)
+        axios.put('https://test-back.authentify.upowa.org/api/user/update/' + user.email, value)
+            .then(resp => {
+                console.log(resp)
                 setUser(resp.data)
                 if (resp.status === 201) {
                     message.success('Successfully')
@@ -153,9 +160,8 @@ const Profil = () => {
             children: (
                 <div>
                     <Form
-                        onFinish={(values) => (
-                            console.log(values)
-                        )}
+
+                        onFinish={onUpdate}
                     >
                         <div style={{ display: 'flex' }}>
                             <Form.Item
@@ -300,10 +306,11 @@ const Profil = () => {
                                 />
                             </Form.Item>
                         </div>
+                        <Button htmlType='submit' type="primary" onClick={onUpdate} icon={<EditOutlined />}>
+                            Update
+                        </Button>
                     </Form>
-                    <Button htmlType='submit' type="primary" onClick={onUpdate} icon={<EditOutlined />}>
-                        Update
-                    </Button>
+
                 </div>
             ),
         }
