@@ -174,7 +174,7 @@ const User = () => {
             ...getColumnSearchProps('profil'),
         },
         {
-            title: 'Action',
+            title: 'Actions',
             render: (_, record) => (
                 <Space size="middle">
                     <UserDetails user={record} />
