@@ -15,14 +15,14 @@ const User = () => {
     const history = useNavigate();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-   
+
     useEffect(() => {
         let email = sessionStorage.getItem('email');
         if (email === '' || email === null) {
             history('/Signin')
         };
         getUsers();
-        
+
     }, []);
 
     const getUsers = () => {
@@ -187,13 +187,13 @@ const User = () => {
     return (
         <div style={{ marginTop: '-10px' }}>
 
-            <div style={{ marginLeft: '20px', width: '80vw', marginTop: '20px' }}>
-                <AddUser onUserAdded={onUserAdded} />            
-            
+            <div style={{ width: '80vw', marginTop: '20px' }}>
+                <AddUser onUserAdded={onUserAdded} />
+
                 <Table
                     loading={loading}
                     columns={columns}
-                    dataSource={data}                      
+                    dataSource={data}
                     pagination={{
                         pageSize: 6,
                         total: data.totaPages
