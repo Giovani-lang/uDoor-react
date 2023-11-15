@@ -15,9 +15,7 @@ const User = () => {
     const history = useNavigate();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [query, setQuery] = useState('')
-    const [filterData, setFilterdata]= useState([])
-
+   
     useEffect(() => {
         let email = sessionStorage.getItem('email');
         if (email === '' || email === null) {
@@ -177,7 +175,7 @@ const User = () => {
             ...getColumnSearchProps('profil'),
         },
         {
-            title: 'Action',
+            title: 'Actions',
             render: (_, record) => (
                 <Space size="middle">
                     <UserDetails user={record} />
@@ -190,27 +188,12 @@ const User = () => {
         <div style={{ marginTop: '-10px' }}>
 
             <div style={{ marginLeft: '20px', width: '80vw', marginTop: '20px' }}>
-                <AddUser onUserAdded={onUserAdded} />
-                <div style={{backgroundColor:'grey', display:'flex', flexDirection:'row', borderRadius:'40px', }}>
-                <SearchOutlined />
-                <Input
-                type='text' 
-                placeholder='Type text search...'
-                style={{borderRadius:'0px'}}
-                allowClear
-                value={query}
-                onChange={handleChange}
-                />
-
-           
-                </div>
+                <AddUser onUserAdded={onUserAdded} />            
+            
                 <Table
                     loading={loading}
                     columns={columns}
-                    dataSource={filterData}
-                    filterValue= {query}
-                    
-                    
+                    dataSource={data}                      
                     pagination={{
                         pageSize: 6,
                         total: data.totaPages

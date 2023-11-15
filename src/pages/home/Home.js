@@ -18,7 +18,7 @@ const onPanelChange = (value, mode) => {
 
 
 const Home = () => {
-  const [utilisateurs, setUtilisateurs] = useState();
+  const [utilisateurs, setUtilisateurs] = useState(null);
   var [userActif, setUserActif] = useState(0);
   const history = useNavigate();
   const [nbUserAc, setNbuserAc] = useState(null);

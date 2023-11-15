@@ -11,7 +11,6 @@ const Navibar = () => {
         {
 
             style: {marginLeft: '1360px', color: 'white', marginTop: '8px' },
-            style: { marginLeft: '77rem', color: 'white', marginTop: '8px' },
             label: 'Settings',
             key: 'SubMenu',
             icon: <SettingOutlined />,

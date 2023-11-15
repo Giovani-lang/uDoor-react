@@ -16,7 +16,7 @@ const { Option } = Select;
 
 const Profil = () => {
 
-
+    const [form] = Form.useForm();
     const history = useNavigate();
 
     const [user, setUser] = useState({
@@ -36,7 +36,15 @@ const Profil = () => {
         if (email === '' || email === null) {
             history('/Signin')
         }
+        getProfil();
     }, []);
+
+    const getProfil = () =>{
+        axios.get('https://test-back.authentify.upowa.org/api/user/detail?email='+email)
+        .then((resp)=>{
+            setUser(resp.data)
+        })
+    }
 
     const [image, setImage] = useState("")
 
@@ -90,189 +98,200 @@ const Profil = () => {
 
 
     return (
-        <div className='profil'>
+        <Form
+        form={form}
+        layout="vertical"
+        name="form_in_modal"
+        onFinish={(user) => {
+            console.log(user);
+        }}>
+            <div className='profil'>
 
-            <Card
-                style={{
+<Card
+    style={{
 
-                    backgroundImage: 'linear-gradient(#0078d4,white,white)',
-                    display: 'flex',
-                    width: 300,
-                    height: 350,
-                    justifyContent: 'center',
-                }}
-            >
-                <div
-                    className='.convert-image '
-                >
-                    <div style={{ textAlign: 'center' }}>
-                        <h2 >{user.firstname} {user.lastname}</h2>
-                    </div>
-                    <div className='image'>
-                        <img
-                            className='img'
-                            src={user.image_url || 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg'}
-                        />
-                    </div>
-                </div>
-            </Card>
-
-            <div className='content'>
-                <Card
-                    style={{
-                        width: 600,
-                    }}
-                >
-                    <div style={{ display: 'flex' }}>
-                        <Form.Item
-                            name={"firstname"}
-                            initialValue={user.firstname}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please, enter your firstname',
-
-                                },
-                                {
-                                    type: "text",
-                                    message: 'firstname is not valid',
-                                    warningOnly: true,
-
-                                },
-                            ]}>
-                            <Input placeholder='firstname' style={{ width: '230px', marginRight: '10px' }}
-                                prefix={<UserOutlined />} />
-                        </Form.Item>
-                        <Form.Item
-                            name={"lastname"}
-                            initialValue={user.lastname}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please, enter your lastname',
-
-                                },
-                                {
-                                    type: "text",
-                                    message: 'lastname is not valid',
-                                    warningOnly: true,
-
-                                },
-                            ]}
-                        >
-                            <Input placeholder='lastname' style={{ width: '230px', marginRight: '10px' }}
-                                prefix={<UserOutlined />} />
-                        </Form.Item>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        <Form.Item
-                            name={"email"}
-                            initialValue={user.email}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please, enter your email',
-
-                                },
-                                {
-                                    type: "email",
-                                    message: 'email is not valid',
-                                    warningOnly: true,
-
-                                },
-                            ]}
-                        >
-                            <Input placeholder='email' style={{ width: '230px', marginRight: '10px' }}
-                                prefix={<MailOutlined />} />
-
-                        </Form.Item>
-                        <Form.Item
-                            name={"password"}
-                            initialValue={user.password}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please, enter your password',
-
-                                },
-                                {
-                                    type: "password",
-                                    message: 'password is not valid',
-                                    warningOnly: true,
-
-                                },
-                            ]}>
-                            <Input.Password placeholder='password' style={{ width: '230px', marginRight: '10px' }}
-                                prefix={<LockOutlined />} />
-                        </Form.Item>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        <Form.Item >
-                            <Space.Compact>
-                                <Form.Item
-                                    name={'profil'}
-                                    initialValue={user.profil}
-                                    noStyle
-                                    rules={[{ required: true, message: 'Profil is required' }]}
-                                >
-                                    <Select placeholder="profil" style={{ width: '230px', marginRight: '10px' }}
-                                    >
-                                        <Option value="User">User</Option>
-                                        <Option value="Admin">Admin</Option>
-                                    </Select>
-                                </Form.Item>
-                            </Space.Compact>
-                        </Form.Item>
-                        <Form.Item
-                            name={"phone"}
-                            initialValue={user.phone}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please, enter your phone number',
-
-                                },
-                                {
-                                    type: "text",
-                                    message: 'phone number is not valid',
-                                    warningOnly: true,
-
-                                },
-                            ]}>
-                            <Input placeholder='phone' style={{ width: '230px', marginRight: '10px' }}
-                                prefix={<PhoneOutlined />} />
-                        </Form.Item>
-                    </div>
-                    <div
-                        style={{ display: 'flex' }}>
-                        <Form.Item >
-                            <Space.Compact>
-                                <Form.Item
-                                    name={'statut'}
-                                    noStyle
-                                    initialValue={user.statut}
-                                    rules={[{ required: false, message: 'Status is required' }]}
-                                >
-                                    <Select placeholder="statut" style={{ width: '230px', marginRight: '10px' }}>
-                                        <Option value="Actif">Actif</Option>
-                                        <Option value="Inactif">Inactif</Option>
-                                    </Select>
-                                </Form.Item>
-                            </Space.Compact>
-                        </Form.Item>
-                        <Form.Item>
-                            <Input type='file' accept='.png,.jpeg,.jpg'
-                                onChange={handleImageSelected}
-                            />
-                        </Form.Item>
-                    </div>
-
-                    <Form.Item>
-                        <Button htmlType='submit' type="primary" style={{ width: '150px' }} onClick={onUpdate}>Update</Button>
-                    </Form.Item>
-                </Card>
-            </div>
+        backgroundImage: 'linear-gradient(#0078d4,white,white)',
+        display: 'flex',
+        width: 300,
+        height: 350,
+        justifyContent: 'center',
+    }}
+>
+    <div
+        className='.convert-image '
+    >
+        <div style={{ textAlign: 'center' }}>
+            <h2 >{user.firstname} {user.lastname}</h2>
         </div>
+        <div className='image'>
+            <img
+                className='img'
+                src={user.image_url || 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg'}
+            />
+        </div>
+    </div>
+</Card>
+
+<div className='content'>
+    <Card
+        style={{
+            width: 600,
+        }}
+    >
+        <div>
+            
+        </div>
+        <div style={{ display: 'flex' }}>
+            <Form.Item
+                name={"firstname"}
+                initialValue={user.firstname}
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please, enter your firstname',
+
+                    },
+                    {
+                        type: "text",
+                        message: 'firstname is not valid',
+                        warningOnly: true,
+
+                    },
+                ]}>
+                <Input placeholder='firstname' style={{ width: '230px', marginRight: '10px' }}
+                    prefix={<UserOutlined />} />
+            </Form.Item>
+            <Form.Item
+                name={"lastname"}
+                initialValue={user.lastname}
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please, enter your lastname',
+
+                    },
+                    {
+                        type: "text",
+                        message: 'lastname is not valid',
+                        warningOnly: true,
+
+                    },
+                ]}
+            >
+                <Input placeholder='lastname' style={{ width: '230px', marginRight: '10px' }}
+                    prefix={<UserOutlined />} />
+            </Form.Item>
+        </div>
+        <div style={{ display: 'flex' }}>
+            <Form.Item
+                name={"email"}
+                initialValue={user.email}
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please, enter your email',
+
+                    },
+                    {
+                        type: "email",
+                        message: 'email is not valid',
+                        warningOnly: true,
+
+                    },
+                ]}
+            >
+                <Input placeholder='email' style={{ width: '230px', marginRight: '10px' }}
+                    prefix={<MailOutlined />} />
+
+            </Form.Item>
+            <Form.Item
+                name={"password"}
+                initialValue={user.password}
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please, enter your password',
+
+                    },
+                    {
+                        type: "password",
+                        message: 'password is not valid',
+                        warningOnly: true,
+
+                    },
+                ]}>
+                <Input.Password placeholder='password' style={{ width: '230px', marginRight: '10px' }}
+                    prefix={<LockOutlined />} />
+            </Form.Item>
+        </div>
+        <div style={{ display: 'flex' }}>
+            <Form.Item >
+                <Space.Compact>
+                    <Form.Item
+                        name={'profil'}
+                        initialValue={user.profil}
+                        noStyle
+                        rules={[{ required: true, message: 'Profil is required' }]}
+                    >
+                        <Select placeholder="profil" style={{ width: '230px', marginRight: '10px' }}
+                        >
+                            <Option value="User">User</Option>
+                            <Option value="Admin">Admin</Option>
+                        </Select>
+                    </Form.Item>
+                </Space.Compact>
+            </Form.Item>
+            <Form.Item
+                name={"phone"}
+                initialValue={user.phone}
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please, enter your phone number',
+
+                    },
+                    {
+                        type: "text",
+                        message: 'phone number is not valid',
+                        warningOnly: true,
+
+                    },
+                ]}>
+                <Input placeholder='phone' style={{ width: '230px', marginRight: '10px' }}
+                    prefix={<PhoneOutlined />} />
+            </Form.Item>
+        </div>
+        <div
+            style={{ display: 'flex' }}>
+            <Form.Item >
+                <Space.Compact>
+                    <Form.Item
+                        name={'statut'}
+                        noStyle
+                        initialValue={user.statut}
+                        rules={[{ required: false, message: 'Status is required' }]}
+                    >
+                        <Select placeholder="statut" style={{ width: '230px', marginRight: '10px' }}>
+                            <Option value="Actif">Actif</Option>
+                            <Option value="Inactif">Inactif</Option>
+                        </Select>
+                    </Form.Item>
+                </Space.Compact>
+            </Form.Item>
+            <Form.Item>
+                <Input type='file' accept='.png,.jpeg,.jpg'
+                    onChange={handleImageSelected}
+                />
+            </Form.Item>
+        </div>
+
+        <Form.Item>
+            <Button htmlType='submit' type="primary" style={{ width: '150px' }} onClick={onUpdate}>Update</Button>
+        </Form.Item>
+    </Card>
+</div>
+</div>
+        </Form>
     );
 };
 
