@@ -117,8 +117,6 @@ const UpdateUser = ({ user, onUserAdded }) => {
                     onFinish={(values) => {
                         console.log(values);
                     }}
-
-
                 >
                     <div style={{ display: 'flex' }}>
                         <Form.Item

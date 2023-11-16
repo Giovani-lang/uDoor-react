@@ -295,7 +295,7 @@ const Profil = () => {
                                 />
                             </Form.Item>
                         </div>
-                        <Button htmlType='submit' type="primary" onClick={onUpdate} icon={<EditOutlined />}>
+                        <Button htmlType='submit' type="primary" icon={<EditOutlined />}>
                             Update
                         </Button>
                     </Form>

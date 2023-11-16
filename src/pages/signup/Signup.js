@@ -17,25 +17,19 @@ const Signup = () => {
 
     const history = useNavigate();
 
-    const [firstname, setFirstname] = useState("")
-    const [lastname, setLastname] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [phone, setPhone] = useState("")
-    const [profil, setProfil] = useState("")
+    const [data, setData] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        phone: '',
+        profil: ''
+    })
 
-    function handleSubmit(event) {
-        event.preventDefault()
-        const data = {
-            firstname,
-            lastname,
-            email,
-            password,
-            phone,
-            profil
-        }
-        axios.post(url, data)
+    function handleSubmit(values) {
+        axios.post(url, values)
             .then(resp => {
+                setData(resp.data)
                 if (resp.status === 201) {
                     message.success('User registered')
                     history('/Signin');
@@ -68,7 +62,7 @@ const Signup = () => {
 
                     <div className="form-login">
                         <h1>Create your <br /> account </h1>
-                        <Form onSubmit={handleSubmit}>
+                        <Form onFinish={handleSubmit}>
                             <div style={{ display: 'flex' }}>
                                 <Form.Item
                                     name={"firstname"}
@@ -85,7 +79,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input onChange={(e) => setFirstname(e.target.value)} placeholder='firstname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
+                                    <Input placeholder='firstname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
                                 </Form.Item>
                                 <Form.Item
                                     name={"lastname"}
@@ -103,7 +97,7 @@ const Signup = () => {
                                         },
                                     ]}
                                 >
-                                    <Input onChange={(e) => setLastname(e.target.value)} placeholder='lastname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
+                                    <Input placeholder='lastname' style={{ width: '250px', marginRight: '10px' }} prefix={<UserOutlined />} />
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
@@ -123,7 +117,7 @@ const Signup = () => {
                                         },
                                     ]}
                                 >
-                                    <Input onChange={(e) => setEmail(e.target.value)} placeholder='email' style={{ width: '250px', marginRight: '10px' }} prefix={<MailOutlined />} />
+                                    <Input placeholder='email' style={{ width: '250px', marginRight: '10px' }} prefix={<MailOutlined />} />
 
                                 </Form.Item>
                                 <Form.Item
@@ -141,7 +135,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input.Password onChange={(e) => setPassword(e.target.value)} placeholder='password' style={{ width: '250px', marginRight: '10px' }} prefix={<LockOutlined />} />
+                                    <Input.Password placeholder='password' style={{ width: '250px', marginRight: '10px' }} prefix={<LockOutlined />} />
                                 </Form.Item>
                             </div>
                             <div style={{ display: 'flex' }}>
@@ -160,7 +154,7 @@ const Signup = () => {
 
                                         },
                                     ]}>
-                                    <Input onChange={(e) => setPhone(e.target.value)} placeholder='phone' style={{ width: '250px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
+                                    <Input placeholder='phone' style={{ width: '250px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
                                 </Form.Item>
                                 <Form.Item >
                                     <Space.Compact>
@@ -179,7 +173,7 @@ const Signup = () => {
 
                             </div>
                             <Form.Item>
-                                <Button htmlType='submit' type="primary" style={{ width: '150px' }} onClick={handleSubmit}>Register</Button>
+                                <Button htmlType='submit' type="primary" style={{ width: '150px' }}>Register</Button>
                             </Form.Item>
                             <div className="navigation"><Signin /></div>
                         </Form>

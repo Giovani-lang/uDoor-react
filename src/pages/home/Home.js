@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css'
-import { ArrowDownOutlined, ArrowUpOutlined ,TeamOutlined} from '@ant-design/icons';
+import { ArrowDownOutlined, ArrowUpOutlined, TeamOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Statistic, Calendar, Radio, Select, Typography, theme } from 'antd';
 import { Area, Pie } from '@ant-design/plots';
 import dayjs from 'dayjs';
@@ -34,7 +34,7 @@ const Home = () => {
   useEffect(() => {
     // Récupération des données du serveur
     axios.get("https://test-back.authentify.upowa.org/api/user/all?page=2&size=10000")
-        .then((response) => {
+      .then((response) => {
         console.log(response.data)
         //Nombre d'utilisateurs 
         setUtilisateurs(response.data.totalElements)
@@ -47,7 +47,7 @@ const Home = () => {
         // const UserInactif = utilisateurs-nbUserAc;
         const userInactif = response.data.content.filter(utilisateur => utilisateur.statut === "Inactif");
         setUserInactif(userInactif.length)
-        console.log(userInactif)   
+        console.log(userInactif)
       });
   }, []);
 
@@ -60,18 +60,18 @@ const Home = () => {
 
   //Graphe de données
   const data = [
-   
+
     {
       type: 'Active users',
       value: nbUserAc
     },
     {
-      type: 'Inactive Users',      
-      value:userInactif,     
-      
+      type: 'Inactive Users',
+      value: userInactif,
+
     },
-    
-       
+
+
   ];
   const config = {
     appendPadding: 10,
@@ -95,24 +95,24 @@ const Home = () => {
   };
 
 
-  
-  
+
+
   return (
-    <div style={{ backgroundColor: '#e5e9ed',fontWeight:'bold',  margin: '0px', width: '1250px', marginTop: '-12px' }} >
+    <div style={{ backgroundColor: '#e5e9ed', fontWeight: 'bold', margin: '0px', width: '1250px', marginTop: '-12px' }} >
       {/* // statistiques */}
       <div className='stats'>
         <Row gutter={10}  >
           <Col style={{ margin: '50px', marginTop: '50px' }} span={1000} >
             <Card bordered={false} style={{ width: '300px', height: '200px', backgroundColor: '#6cb0e7' }}>
               <Statistic
-                title="Number of users" 
+                title="Number of users"
                 value={utilisateurs}
-                
+
                 valueStyle={{
                   color: '#3f8600',
                 }}
                 prefix=''
-                suffix={<TeamOutlined style={{marginLeft:150, marginTop:50}}/>}
+                suffix={<TeamOutlined style={{ marginLeft: 150, marginTop: 50 }} />}
               />
             </Card>
           </Col>
@@ -125,7 +125,7 @@ const Home = () => {
                   color: '#3f8600',
                 }}
                 prefix={<ArrowUpOutlined />}
-                suffix={<TeamOutlined style={{marginLeft:150, marginTop:50}}/>}
+                suffix={<TeamOutlined style={{ marginLeft: 150, marginTop: 50 }} />}
               />
             </Card>
           </Col>
@@ -138,15 +138,15 @@ const Home = () => {
                   color: '#cf1322',
                 }}
                 prefix={<ArrowDownOutlined />}
-                suffix={<TeamOutlined style={{marginLeft:150, marginTop:50, color:'red'}} />}
+                suffix={<TeamOutlined style={{ marginLeft: 150, marginTop: 50, color: 'red' }} />}
               />
             </Card>
           </Col>
         </Row>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row', marginTop:'-5px' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '-5px' }}>
         {/* Graphe */}
-        <div style={{marginRight:20, marginLeft: 30,marginTop: '-140px', width: 600, height: 600}} >
+        <div style={{ marginRight: 20, marginLeft: 30, marginTop: '-140px', width: 600, height: 600 }} >
           {<Pie {...config} />}
         </div>
         {/* calendrier */}
