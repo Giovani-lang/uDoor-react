@@ -38,6 +38,7 @@ const User = () => {
     };
     const onUserAdded = () => {
         getUsers()
+        
     };
 
     const [searchText, setSearchText] = useState('');

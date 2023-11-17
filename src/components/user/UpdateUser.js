@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Input, Modal, Select, Space, message } from 'antd';
 import { MailOutlined, LockOutlined, UserOutlined, PhoneOutlined, EditOutlined } from '@ant-design/icons';
@@ -15,13 +15,26 @@ const UpdateUser = ({ user, onUserAdded }) => {
 
     const showModal = () => {
         setIsModalOpen(true);
+        
+       
     };
+    
+    
 
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
-
+    const passwordValidator = (_, value) => {
+        if (value && value.length < 8) {
+          return Promise.reject(new Error('Le mot de passe doit contenir au moins 8 caractères'));
+        }
+        return Promise.resolve();
+      }; 
+    const phoneValidator = (rule, value, callback) => {
+    const phoneRegex = /^(\+\d{1,3})?\d{9}$/;
+    if (!phoneRegex.test(value)) {
+      callback('Veuillez entrer un numéro de téléphone valide');
+    } else {
+      callback();
+    }
+  };
     const [value, setValue] = useState({
         firstname: "",
         lastname: "",
@@ -32,6 +45,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
         statut: "",
         image_url: "",
     });
+
 
     const [image, setImage] = useState("")
 
@@ -83,6 +97,12 @@ const UpdateUser = ({ user, onUserAdded }) => {
             }
         })
 
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        onUserAdded()
+        
+        
     };
 
     return (
@@ -191,11 +211,8 @@ const UpdateUser = ({ user, onUserAdded }) => {
 
                                 },
                                 {
-                                    type: "password",
-                                    message: 'password is not valid',
-                                    warningOnly: true,
-
-                                },
+                                    validator: passwordValidator,
+                                  },
                             ]}>
                             <Input.Password placeholder='password' style={{ width: '230px', marginRight: '10px' }}
                                 prefix={<LockOutlined />} />
@@ -228,11 +245,8 @@ const UpdateUser = ({ user, onUserAdded }) => {
 
                                 },
                                 {
-                                    type: "text",
-                                    message: 'phone number is not valid',
-                                    warningOnly: true,
-
-                                },
+                                    validator: phoneValidator,
+                                  },
                             ]}>
                             <Input placeholder='phone' style={{ width: '230px', marginRight: '10px' }}
                                 prefix={<PhoneOutlined />} />

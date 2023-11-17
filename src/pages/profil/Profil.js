@@ -29,6 +29,20 @@ const Profil = () => {
         image_url: ""
     });
 
+    const passwordValidator = (_, value) => {
+        if (value && value.length < 8) {
+          return Promise.reject(new Error('Le mot de passe doit contenir au moins 8 caractères'));
+        }
+        return Promise.resolve();
+      }; 
+  const phoneValidator = (rule, value, callback) => {
+    const phoneRegex = /^(\+\d{1,3})?\d{9}$/;
+    if (!phoneRegex.test(value)) {
+      callback('Veuillez entrer un numéro de téléphone valide');
+    } else {
+      callback();
+    }
+  };
     let email;
     useEffect(() => {
         email = sessionStorage.getItem('email');
@@ -224,10 +238,7 @@ const Profil = () => {
 
                                     },
                                     {
-                                        type: "password",
-                                        message: 'password is not valid',
-                                        warningOnly: true,
-
+                                        validator: passwordValidator,
                                     },
                                 ]}>
                                 <Input.Password placeholder='password' style={{ width: '230px', marginRight: '10px' }}
@@ -261,11 +272,9 @@ const Profil = () => {
 
                                     },
                                     {
-                                        type: "text",
-                                        message: 'phone number is not valid',
-                                        warningOnly: true,
-
+                                        validator: phoneValidator,
                                     },
+        
                                 ]}>
                                 <Input placeholder='phone' style={{ width: '230px', marginRight: '10px' }}
                                     prefix={<PhoneOutlined />} />

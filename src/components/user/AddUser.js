@@ -8,6 +8,21 @@ const { Option } = Select;
 const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
     const [form] = Form.useForm();
 
+    const passwordValidator = (_, value) => {
+        if (value && value.length < 8) {
+            return Promise.reject(new Error('Le mot de passe doit contenir au moins 8 caractères'));
+        }
+        return Promise.resolve();
+    };
+    const phoneValidator = (rule, value, callback) => {
+        const phoneRegex = /^(\+\d{1,3})?\d{9}$/;
+        if (!phoneRegex.test(value)) {
+            callback('Veuillez entrer un numéro de téléphone valide');
+        } else {
+            callback();
+        }
+    };
+
     return (
         <Modal
             open={open}
@@ -98,10 +113,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
 
                             },
                             {
-                                type: "password",
-                                message: 'password is not valid',
-                                warningOnly: true,
-
+                                validator: passwordValidator,
                             },
                         ]}>
                         <Input.Password placeholder='password' style={{ width: '230px', marginRight: '10px' }} prefix={<LockOutlined />} />
@@ -129,15 +141,14 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
                                 required: true,
                                 message: 'Please, enter your phone number',
 
-                            },
-                            {
-                                type: "text",
-                                message: 'phone number is not valid',
-                                warningOnly: true,
 
                             },
+                            {
+                                validator: phoneValidator,
+                            },
+
                         ]}>
-                        <Input placeholder='phone' style={{ width: '230px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
+                        <Input placeholder="Ex : 699094578" style={{ width: '230px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
                     </Form.Item>
                 </div>
             </Form>
@@ -176,7 +187,7 @@ const AddUser = ({ onUserAdded }) => {
     return (
         <div>
             <Button
-                style={{ margin: 8, color:'white', fon: 'bold', backgroundColor: '#001529',  }}
+                style={{ margin: 8, color: 'white', fon: 'bold', backgroundColor: '#001529', }}
                 onClick={() => {
                     setOpen(true);
                 }}
