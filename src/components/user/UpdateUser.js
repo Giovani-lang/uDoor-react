@@ -30,7 +30,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
         profil: "",
         phone: "",
         statut: "",
-        image_url: ""
+        image_url: "",
     });
 
     const [image, setImage] = useState("")
@@ -62,11 +62,11 @@ const UpdateUser = ({ user, onUserAdded }) => {
         console.log(values)
         axios.put(`https://test-back.authentify.upowa.org/api/user/update/${user.email}`, values)
             .then((resp) => {
-                setValue(resp)
+                setValue(resp.data)
                 if (resp.status === 201) {
-                    message.success('User update succesfull')
-                    handleCancel()
-                    onUserAdded()
+                    message.success('User update succesfull');
+                    handleCancel();
+                    onUserAdded();
                 }
             }).catch(err => {
                 console.log(err)

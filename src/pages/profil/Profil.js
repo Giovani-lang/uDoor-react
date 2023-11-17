@@ -43,7 +43,6 @@ const Profil = () => {
         axios.get('https://test-back.authentify.upowa.org/api/user/detail?email=' + email)
             .then((resp) => {
                 setUser(resp.data)
-                console.log(user)
             })
     }
 
