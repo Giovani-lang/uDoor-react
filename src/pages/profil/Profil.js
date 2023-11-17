@@ -31,18 +31,18 @@ const Profil = () => {
 
     const passwordValidator = (_, value) => {
         if (value && value.length < 8) {
-          return Promise.reject(new Error('Le mot de passe doit contenir au moins 8 caractères'));
+            return Promise.reject(new Error('The password must contain at least 8 characters'));
         }
         return Promise.resolve();
-      }; 
-  const phoneValidator = (rule, value, callback) => {
-    const phoneRegex = /^(\+\d{1,3})?\d{9}$/;
-    if (!phoneRegex.test(value)) {
-      callback('Veuillez entrer un numéro de téléphone valide');
-    } else {
-      callback();
-    }
-  };
+    };
+    const phoneValidator = (rule, value, callback) => {
+        const phoneRegex = /^(\+\d{1,3})?\d{9}$/;
+        if (!phoneRegex.test(value)) {
+            callback('Please enter a valid phone number');
+        } else {
+            callback();
+        }
+    };
     let email;
     useEffect(() => {
         email = sessionStorage.getItem('email');
@@ -274,7 +274,7 @@ const Profil = () => {
                                     {
                                         validator: phoneValidator,
                                     },
-        
+
                                 ]}>
                                 <Input placeholder='phone' style={{ width: '230px', marginRight: '10px' }}
                                     prefix={<PhoneOutlined />} />
