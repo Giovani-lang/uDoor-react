@@ -26,6 +26,22 @@ const Signup = () => {
         profil: ''
     })
 
+    const passwordValidator = (_, value) => {
+        if (value && value.length < 8) {
+          return Promise.reject(new Error('Le mot de passe doit contenir au moins 8 caractères'));
+        }
+        return Promise.resolve();
+      }; 
+  const phoneValidator = (rule, value, callback) => {
+    const phoneRegex = /^(\+\d{1,3})?\d{9}$/;
+    if (!phoneRegex.test(value)) {
+      callback('Veuillez entrer un numéro de téléphone valide');
+    } else {
+      callback();
+    }
+  };
+  
+
     function handleSubmit(values) {
         axios.post(url, values)
             .then(resp => {
@@ -129,11 +145,8 @@ const Signup = () => {
 
                                         },
                                         {
-                                            type: "password",
-                                            message: 'password is not valid',
-                                            warningOnly: true,
-
-                                        },
+                                            validator: passwordValidator,
+                                          },
                                     ]}>
                                     <Input.Password placeholder='password' style={{ width: '250px', marginRight: '10px' }} prefix={<LockOutlined />} />
                                 </Form.Item>
@@ -145,16 +158,15 @@ const Signup = () => {
                                         {
                                             required: true,
                                             message: 'Please, enter your phone number',
+                                            
 
                                         },
                                         {
-                                            type: "text",
-                                            message: 'phone number is not valid',
-                                            warningOnly: true,
-
-                                        },
+                                            validator: phoneValidator,
+                                          },
+                                        
                                     ]}>
-                                    <Input placeholder='phone' style={{ width: '250px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
+                                    <Input placeholder="Ex : 699094578" style={{ width: '250px', marginRight: '10px' }} prefix={<PhoneOutlined />} />
                                 </Form.Item>
                                 <Form.Item >
                                     <Space.Compact>
