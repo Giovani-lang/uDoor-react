@@ -15,29 +15,26 @@ const UpdateUser = ({ user, onUserAdded }) => {
 
     const showModal = () => {
         setIsModalOpen(true);
-        
-       
     };
-    
+
     const handleCancel = () => {
         setIsModalOpen(false);
-     
     };
 
     const passwordValidator = (_, value) => {
         if (value && value.length < 8) {
-          return Promise.reject(new Error('Le mot de passe doit contenir au moins 8 caractères'));
+            return Promise.reject(new Error('The password must contain at least 8 characters'));
         }
         return Promise.resolve();
-      }; 
+    };
     const phoneValidator = (rule, value, callback) => {
-    const phoneRegex = /^(\+\d{1,3})?\d{9}$/;
-    if (!phoneRegex.test(value)) {
-      callback('Veuillez entrer un numéro de téléphone valide');
-    } else {
-      callback();
-    }
-  };
+        const phoneRegex = /^(\+\d{1,3})?\d{9}$/;
+        if (!phoneRegex.test(value)) {
+            callback('Please enter a valid phone number');
+        } else {
+            callback();
+        }
+    };
     const [value, setValue] = useState({
         firstname: "",
         lastname: "",
@@ -100,6 +97,12 @@ const UpdateUser = ({ user, onUserAdded }) => {
             }
         })
 
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        onUserAdded()
+        
+        
     };
 
     return (
@@ -209,7 +212,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
                                 },
                                 {
                                     validator: passwordValidator,
-                                  },
+                                },
                             ]}>
                             <Input.Password placeholder='password' style={{ width: '230px', marginRight: '10px' }}
                                 prefix={<LockOutlined />} />
@@ -243,7 +246,7 @@ const UpdateUser = ({ user, onUserAdded }) => {
                                 },
                                 {
                                     validator: phoneValidator,
-                                  },
+                                },
                             ]}>
                             <Input placeholder='phone' style={{ width: '230px', marginRight: '10px' }}
                                 prefix={<PhoneOutlined />} />

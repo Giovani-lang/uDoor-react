@@ -36,9 +36,10 @@ const User = () => {
             )
             .catch(err => console.log(err))
     };
+
     const onUserAdded = () => {
         getUsers()
-        
+
     };
 
     const [searchText, setSearchText] = useState('');

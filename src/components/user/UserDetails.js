@@ -8,7 +8,6 @@ import { MailOutlined, UserOutlined, PhoneOutlined, EyeOutlined, MonitorOutlined
 
 const UserDetails = ({ user }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [userImageURL, setUserImageURL] = useState(user.image_url);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -17,11 +16,6 @@ const UserDetails = ({ user }) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
-    useEffect(() => {
-        axios.get('https://test-back.authentify.upowa.org/api/user/detail?email=' + user.email)
-        setUserImageURL(user.image_url);
-    }, [user.email])
 
     return (
         <>
@@ -45,7 +39,7 @@ const UserDetails = ({ user }) => {
                         <div style={{ display: 'grid', justifyContent: 'center' }}>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <Image
-                                    src={userImageURL}
+                                    src={user.image_url}
                                     fallback={'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg'}
                                     style={{
                                         width: '150px',
