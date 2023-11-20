@@ -19,7 +19,10 @@ const UpdateUser = ({ user, onUserAdded }) => {
        
     };
     
-    
+    const handleCancel = () => {
+        setIsModalOpen(false);
+     
+    };
 
     const passwordValidator = (_, value) => {
         if (value && value.length < 8) {
@@ -97,12 +100,6 @@ const UpdateUser = ({ user, onUserAdded }) => {
             }
         })
 
-    };
-    const handleCancel = () => {
-        setIsModalOpen(false);
-        onUserAdded()
-        
-        
     };
 
     return (
